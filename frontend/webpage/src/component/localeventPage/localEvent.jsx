@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Event from "./Event.jsx";
-import NavBar from "../Navbar.jsx"
+import NavBar from "../Navbar.jsx";
+import Footer from "../Footer.jsx";
 
 const localEvent = () => {
 

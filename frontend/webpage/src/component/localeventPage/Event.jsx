@@ -25,7 +25,7 @@ const Event = (props) => {
   }
   return (
     <>
-    <div className="bg-gray-100 text-left rounded-lg my-3" style={{ color: '#00539b' }}>
+    <div className="bg-gray-100 text-left rounded-lg mt-5 mb-3" style={{ color: '#00539b' }}>
         <p className='mx-4 py-3'>{props.name}</p>
         <p className='mx-7'>{props.description}</p>
         <div className="flex justify-between">

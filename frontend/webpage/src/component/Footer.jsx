@@ -18,9 +18,9 @@ const Footer = (props) => {
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/local">Local Events</Link></li>
-            <li><Link to="/">Volunteer</Link></li>
-            <li><Link to="/">Local Businesses</Link></li>
-            <li><Link to="/">Chat Room</Link></li>
+            <li><Link to="/volunteer">Volunteer</Link></li>
+            <li><Link to="/business">Local Businesses</Link></li>
+            <li><Link to="/chat">Chat Room</Link></li>
           </ul>
         </div>
         <div className="mx-3 my-1">

@@ -1,95 +1,90 @@
 import psycopg2
-from constants import Constants
+from config import DATABASE, USER, PASSWORD, HOST, PORT
+from queries import CREATE_ALL_TABLES
 
 class Database():
-    def setup():
-        constants = Constants()
-        engine = psycopg2.connect(
-                database=constants.DATABASE,
-                user=constants.USER,
-                password=constants.PASSWORD,
-                host=constants.HOST,
-                port=constants.PORT
-        )
-        cursor = engine.cursor()
-        create_all_tables = '''
-        -- event table
-        CREATE TABLE event (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255),
-            description TEXT,
-            location VARCHAR(255),
-            pictures BYTEA,
-            date TIMESTAMP,
-            datePosted TIMESTAMP,
-            type VARCHAR(10) CHECK (type IN ('EVENT', 'VOLUNTEER', 'BUSINESS')),
-            comments INT
-        );
+    def setup(self):
+        try:
+            engine = psycopg2.connect(
+                    database=DATABASE,
+                    user=USER,
+                    password=PASSWORD,
+                    host=HOST,
+                    port=PORT
+            )
+            cursor = engine.cursor()
+            create_all_tables = CREATE_ALL_TABLES
+            cursor.execute(create_all_tables)
+            engine.commit()
+        except Exception as e:
+            return "Database setup failed due to {}".format(e) 
+    
+    def dropUsers(self):
+        try:
+            engine = psycopg2.connect(
+                    database=DATABASE,
+                    user=USER,
+                    password=PASSWORD,
+                    host=HOST,
+                    port=PORT
+            )
+            cursor = engine.cursor()
+            create_all_tables = "drop table users"
+            cursor.execute(create_all_tables)
+            engine.commit()
+        except Exception as e:
+            return "Database setup failed due to {}".format(e) 
+    
+    def createAdminUser(self):
+        try:
+            engine = psycopg2.connect(
+                    database=DATABASE,
+                    user=USER,
+                    password=PASSWORD,
+                    host=HOST,
+                    port=PORT
+            )
+            cursor = engine.cursor()
+        
+            sample_data = [
+                    ("user7", "user1@example.com"),
+                    ("user8", "user2@example.com"),
+                    ("user9", "user3@example.com")
+                ]
+        except Exception as e:
+            return "Database setup failed due to {}".format(e) 
 
-        -- user table
-        CREATE TABLE "user" (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255),
-            username VARCHAR(255),
-            email VARCHAR(255),
-            bio TEXT,
-            dateSignUp TIMESTAMP,
-            businessId VARCHAR(255)
-        );
+        # Insert data into the table
+        insert_query = "INSERT INTO users (username, email) VALUES (%s, %s);"
+        cursor.executemany(insert_query, sample_data)
 
-        -- business table
-        CREATE TABLE business (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255),
-            industry VARCHAR(255),
-            address VARCHAR(255),
-            phone VARCHAR(20),
-            email VARCHAR(255),
-            bio TEXT
-        );
+        # Commit the changes to the database
+        engine.commit()
 
-        -- chat table
-        CREATE TABLE chat (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255),
-            description TEXT,
-            messageCount INT,
-            date TIMESTAMP
-        );
-
-        -- message table
-        CREATE TABLE message (
-            id SERIAL PRIMARY KEY,
-            user_id INT REFERENCES "user"(id),
-            chat_id INT REFERENCES chat(id),
-            contents TEXT,
-            date TIMESTAMP
-        );
-
-        -- comment table 
-        CREATE TABLE comment (
-            id SERIAL PRIMARY KEY,
-            user_id INT REFERENCES "user"(id),
-            event_id INT REFERENCES event(id),
-            contents TEXT,
-            date TIMESTAMP
-        );
-        '''
+        # Sample query to retrieve all entries
+        select_query = "SELECT * FROM users;"
+        cursor.execute(select_query)
+        all_entries = cursor.fetchall()
+        print("All entries:")
+        for entry in all_entries:
+            print(entry)
+          
+        
+        
         
         
         
     def makeConnection(self):
-        constants = Constants()
         #gets the credentials from .aws/credentials
         print("LOGGING MESSAGE: STARTING ATTEMPT TO CONNECT")
         try:
             # Establish a connection to the database
             engine = psycopg2.connect(
-                database=constants.DATABASE,
-                user=constants.USER,
-                password=constants.PASSWORD,
-                host=constants.HOST,
-                port=constants.PORT
+                    database=DATABASE,
+                    user=USER,
+                    password=PASSWORD,
+                    host=HOST,
+                    port=PORT
             )
 
             # Create a cursor object to interact with the database

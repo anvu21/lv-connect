@@ -34,7 +34,7 @@ class BusinessEvent(Resource):
     
 class DBTest(Resource):
     def get(self):
-        return database.makeConnection()
+        return database.setup()
 
 api.add_resource(Event, '/event')
 api.add_resource(VolunteerEvent, '/event/volunteer')

@@ -16,11 +16,11 @@ const Event = (props) => {
     <div className="bg-gray-100 text-left rounded-lg my-3" style={{ color: '#00539b' }}>
         <p className='mx-4 py-3'>{props.name}</p>
         <p className='mx-7'>{props.description}</p>
-        <img src={Comments} onClick={toggleComments} className='w-5 cursor-pointer'/>
         <div className="flex justify-between">
             <p className='m-3'>Date: {props.date}</p>
             <p className='m-3'>{props.location}</p>
             <p className='m-3'>Posted: {props.posted}</p>
+            <img src={Comments} onClick={toggleComments} className='w-5 h-4 mr-2 cursor-pointer self-center'/>
         </div> 
     </div>
     { showComments &&

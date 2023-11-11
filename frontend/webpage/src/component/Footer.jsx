@@ -9,7 +9,7 @@ const Footer = (props) => {
     <footer className="bg-gray-200 m-0 flex justify-between items-center" style={{position:"absolute", left:0, right:0}}>
         <div className="mx-3 my-1">
           <h3 className='text-xl'>Contact Us</h3>
-          <p>123 Main Street, Lehigh, PA 18001</p>
+          <p>123 Main Street, Bethlehem, PA 18015</p>
           <p>Phone: (555) 123-4567</p>
           <p>Email: info@lvconnect.com</p>
         </div>

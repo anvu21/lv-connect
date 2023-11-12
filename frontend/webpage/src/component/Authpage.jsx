@@ -42,21 +42,20 @@ const AuthPage = () => {
 
   return (
     <div>
-      <div className="screen">
+      <div className="screen bg-hero-pattern bg-cover bg-no-repeat bg-center">
         <div
-          className="bg-hero-pattern bg-cover bg-no-repeat bg-center"
-          style={{ height: "10vh" }}
+          style={{ height: "10vh", width:"100%" }}
         >
           <Navbar />
           <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <h1 className="text-white text-6xl font-bold">Lehigh Valley</h1>
+            <h1 className="text-white text-6xl font-bold"></h1>
           </div>
         </div>
 
-        <div className="login_box mt-10"> {/* Adjust the margin top (mt) to move the login box down */}
-          <div className="login_text">Login</div>
+        <div className="login_box mt-10 flex flex-col"> {/* Adjust the margin top (mt) to move the login box down */}
+          <div className="login_text mb-10">Login</div>
 
-          <form className="input_contain" onSubmit={handleSubmit}>
+          <form className="input_contain flex flex-col justify-around h-64" onSubmit={handleSubmit}>
             <input
               type="username"
               placeholder="Username"

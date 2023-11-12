@@ -7,9 +7,9 @@ frontend:
         - npm install
     build:
       commands:
-        - npm run build
+        - npm run build # This will output to the 'dist' directory by default
   artifacts:
-    baseDirectory: frontend/webpage
+    baseDirectory: frontend/webpage/dist # Adjusted to the correct build output directory
     files:
       - '**/*'
   cache:

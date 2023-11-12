@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Event from "./Event.jsx";
 import NavBar from "../Navbar.jsx";
-import Footer from "../Footer.jsx";
+import AddEvent from './AddEvent';
 
 const localEvent = () => {
 
@@ -32,7 +32,7 @@ const localEvent = () => {
   return (
     <>
       <NavBar />
-      <div>
+      <div className='w-11/12 flex flex-col' style={{marginLeft:'auto', marginRight:'auto'}}>
         <h1 className='my-5 text-3xl'>Local Events</h1>
         {
           events.map(event => (
@@ -40,6 +40,7 @@ const localEvent = () => {
               posted={event.posted} description={event.description} key={event.id}/>
           ))
         }
+        <AddEvent />
       </div>
     </>
   )

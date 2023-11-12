@@ -47,7 +47,7 @@ const AddEvent = (props) => {
         formData.append('post_type', groupid);
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/images/upload/v2`, formData, {
+            const response = await axios.post(`${import.meta.env.VITE_APP_SOCKET_URL}/images/upload/v2`, formData, {
               headers: {
                 'auth-token': localStorage.getItem('token'),
                 'Content-Type': 'multipart/form-data'

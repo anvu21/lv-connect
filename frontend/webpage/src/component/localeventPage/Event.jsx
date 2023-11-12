@@ -11,21 +11,37 @@ const Event = (props) => {
   const [comments, setComments] = useState([]);
   const [addingComment, setAddingComment] = useState(false);
   const [file, setFile] = useState(null);
+  const [posts, setPosts] = useState([]);
 
   function handleChange(e) {
     setFile(URL.createObjectURL(e.target.files[0]));
   }
 
+  const fetchPosts = async () => {
+
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/images/posts/local`, {
+        headers: {
+          'auth-token': localStorage.getItem('token')
+        }
+      });
+      const fetchedPosts = response.data;
+      //const combinedPosts = [...actors, ...fetchedPosts];
+      const sortedPosts = fetchedPosts.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+    
+      setPosts(sortedPosts);
+      console.log(sortedPosts);
+
+    } catch (error) {
+      console.error('Fetching posts failed:', error);
+    }
+  };
+
   useEffect(() => {
-    setComments([
-      {
-        id: "1",
-        user: "User 1",
-        date: "11/09/2023",
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc consequat interdum varius sit amet mattis vulputate. Volutpat blandit aliquam etiam erat velit scelerisque in dictum non. Ut sem nulla pharetra diam sit amet nisl. Massa ultricies mi quis hendrerit dolor magna eget est. Integer eget aliquet nibh praesent tristique. Velit sed ullamcorper morbi tincidunt ornare massa eget egestas. Rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Vel quam elementum pulvinar etiam. Convallis posuere morbi leo urna. Sed turpis tincidunt id aliquet risus feugiat in ante metus. Tortor vitae purus faucibus ornare. At augue eget arcu dictum varius duis.",
-      },
-    ]);
+    fetchPosts();
+
   }, []);
 
   const toggleComments = () => {

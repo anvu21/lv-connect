@@ -61,10 +61,10 @@ const Footer = (props) => {
         </div>
       </div>
       <div className='flex my-8 py-5 flex-wrap' style={{color:"#00539b"}}>
-        <input className='mx-2' id="subName" type="text" required placeholder='Name *' />
-        <input className='mx-2' id="subEmail" type="email" required placeholder='Email *' />
-        <input className='mx-2' id="subPhone" type="tel" placeholder='Phone' />
-        <button onClick={clearSub} type='submit' className='rounded-md mx-2 p-1 bg-white'>Subscribe</button>
+        <input className='mx-2 rounded-md' id="subName" type="text" required placeholder='  Name *' />
+        <input className='mx-2 rounded-md' id="subEmail" type="email" required placeholder='  Email *' />
+        <input className='mx-2 rounded-md' id="subPhone" type="tel" placeholder='  Phone' />
+        <button onClick={clearSub} type='submit' className='rounded-md mx-2 p-1 bg-white text-sm'>Subscribe</button>
       </div>
       <div className="flex justify-between items-center  max-w-5xl text-sm py-10 gap-10">
         <div className="mx-3 my-1">

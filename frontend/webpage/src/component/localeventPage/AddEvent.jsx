@@ -19,7 +19,7 @@ const AddEvent = (props) => {
             <div className='flex flex-col items-start justify-around'>
                 <div className='m-2 w-full flex justify-between'>
                     <label htmlFor="name">Name: </label>
-                    <input className='mr-5 ' type="text" id="name" name="name" style={{width:'420px'}}/>
+                    <input className='mr-5' type="text" id="name" name="name" style={{width:'420px'}}/>
                 </div>
                 <div className='m-2 w-full flex justify-between'>
                     <label htmlFor="date">Date: </label>
@@ -31,7 +31,7 @@ const AddEvent = (props) => {
                 </div>
                 <div className='m-2 w-full flex justify-between'>
                     <label htmlFor="description">Description: </label>
-                    <textarea  className='mr-5'id="description" name="description" rows="4" cols="50" ></textarea>
+                    <textarea  className='mr-5' id="description" name="description" rows="4" cols="50" ></textarea>
                 </div>
             </div>
             <button className="m-2 border-black border rounded-md py-1 px-2" id="contentSave" onClick={submit}>Save</button>

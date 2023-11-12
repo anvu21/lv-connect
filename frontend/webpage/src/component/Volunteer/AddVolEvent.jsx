@@ -4,36 +4,75 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AddVolEvent = (props) => {
+    const [data, setData] = useState({ text: "", up_down: "" });
 
-    const submit = () => {
-        const name = document.getElementById("name").value;
-        const date = document.getElementById("date").value;
-        const description = document.getElementById("description").value;
-        const location = document.getElementById("location").value;
-        if(name == ""){
-            window.alert("Please enter a name");
+    const handleChange = ({ currentTarget: input }) => {
+      setData({ ...data, [input.name]: input.value });
+      console.log(data);
+    };
+  
+    const handleCamera = () => {
+      document.getElementById('fileInput').click();
+    };
+  
+    const [imageFile, setImageFile] = useState(null);
+    const [file, setFile] = useState(null);
+    const handleFileChange = (e) => {
+      setFile(e.target.files[0]);
+    
+      // show a preview of the image
+      let preview = document.getElementById('imagePreview');
+      preview.src = URL.createObjectURL(e.target.files[0]);
+    };
+
+    const submit = async (e) => {
+        const text = document.getElementById("text").value;
+        const title = document.getElementById("title").value;
+
+        const groupid = "VOL";
+
+        if(title == ""){
+            window.alert("Please enter a title");
             return;
         }
-        if(date == ""){
-            window.alert("Please enter a date");
+        if(text == ""){
+            window.alert("Please enter a text");
             return;
         }
-        if(description == ""){
-            window.alert("Please enter a description");
-            return;
-        }
-        if(location == ""){
-            window.alert("Please enter a location");
-            return;
-        }
-        props.setAdd(false);
+        
+        //props.setAdd(false);
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('text', text);
+        formData.append('title', title);
+        formData.append('post_type', groupid);
+
+        try {
+          const response = await axios.post(`https://vl-connect-4cbc265ba027.herokuapp.com/images/posts/volunteer`, formData, {
+            // const response = await axios.post(`${import.meta.env.VITE_APP_SOCKET_URL}/images/upload/v2`, formData, {
+              headers: {
+                'auth-token': localStorage.getItem('token'),
+                'Content-Type': 'multipart/form-data'
+              }
+            });
+              
+            setData({ text: ""});
+            setFile(null);
+            document.getElementById('imagePreview').src = "";
+            //fetchPosts();
+            window.location.reload()
+          } catch (error) {
+            console.error(error);
+            alert('Could not create post');
+          }
+
+
+
     }
-
     const cancel = () => {
-        document.getElementById("description").value = "";
-        document.getElementById("name").value ="";
-        document.getElementById("date").value ="";
-        document.getElementById("location").value ="";
+        document.getElementById("text").value = "";
+        document.getElementById("title").value = "";
+
         props.setAdd(false);
     }
 

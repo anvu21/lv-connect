@@ -17,21 +17,21 @@ const AddBusinessEvent = (props) => {
         <>
         <div className='bg-gray-200 m-2 w-fit' style={{marginLeft:'auto', marginRight:'auto'}}>
             <div className='flex flex-col items-start justify-around'>
-                <div className='m-2'>
+                <div className='m-2  w-full flex justify-between'>
                     <label htmlFor="name">Name: </label>
-                    <input type="text" id="name" name="name"/>
+                    <input className='mr-5' type="text" id="name" name="name" style={{width:'420px'}}/>
                 </div>
-                <div className='m-2'>
+                <div className='m-2  w-full flex justify-between'>
                     <label htmlFor="date">Date: </label>
-                    <input type="date" id="date" name="date"/>
+                    <input className='mr-5' type="date" id="date" name="date" style={{width:'420px'}}/>
                 </div>
-                <div className='m-2'>
+                <div className='m-2  w-full flex justify-between'>
                     <label htmlFor="location">Location: </label>
-                    <input type="text" id="location" name="location"/>
+                    <input className='mr-5' type="text" id="location" name="location" style={{width:'420px'}}/>
                 </div>
-                <div className='m-2'>
+                <div className='m-2  w-full flex justify-between'>
                     <label htmlFor="description">Description: </label>
-                    <textarea id="description" name="description" rows="4" cols="50" ></textarea>
+                    <textarea className='mr-5' id="description" name="description" rows="4" cols="50" ></textarea>
                 </div>
             </div>
             <button className="m-2 border-black border rounded-md py-1 px-2" id="contentSave" onClick={submit}>Save</button>

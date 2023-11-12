@@ -15,8 +15,8 @@ const localEvent = () => {
   const fetchPosts = async () => {
 
     try {
-      const response = await axios.get(`https://vl-connect-4cbc265ba027.herokuapp.com/images/posts/local`, {
-      // const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/images/posts/local`, {
+      //const response = await axios.get(`https://vl-connect-4cbc265ba027.herokuapp.com/images/posts/local`, {
+       const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/images/posts/local`, {
         headers: {
           'auth-token': localStorage.getItem('token')
         }

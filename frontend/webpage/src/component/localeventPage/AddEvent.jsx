@@ -47,8 +47,8 @@ const AddEvent = (props) => {
         formData.append('post_type', groupid);
 
         try {
-          const response = await axios.post(`https://vl-connect-4cbc265ba027.herokuapp.com/images/posts/local`, formData, {
-            // const response = await axios.post(`${import.meta.env.VITE_APP_SOCKET_URL}/images/upload/v2`, formData, {
+          //const response = await axios.post(`https://vl-connect-4cbc265ba027.herokuapp.com/images/posts/local`, formData, {
+             const response = await axios.post(`${import.meta.env.VITE_APP_SOCKET_URL}/images/upload/v2`, formData, {
               headers: {
                 'auth-token': localStorage.getItem('token'),
                 'Content-Type': 'multipart/form-data'

@@ -9,38 +9,24 @@ const ChatWindow = () => {
   const socket = useRef(null);
   const chatWindowRef = useRef(null);
   const user = localStorage.getItem('name');
-  const conversationId = useMemo(() => 'general', []); // Set a constant conversationId for the general conversation
 
   useEffect(() => {
-    // set the current reference to the socket connection
+    // Set up the socket connection
     socket.current = io(`${import.meta.env.VITE_APP_SOCKET_URL}`, {
       path: '/ws',
       query: { token: localStorage.getItem('token') },
     });
 
-    // Join the conversation room
-    socket.current.emit('join conversation', conversationId);
-
     // Fetch historic messages when the component mounts
     fetchMessages();
 
+    // Handle incoming chat messages
     socket.current.on('chat message', (msg) => {
-      console.log('received a message:', msg);
-      socket.current.emit('fetch old messages', {
-        group_id: localStorage.getItem('groupID'),
-        receiver_name: 'General',
-        user_id: localStorage.getItem('userID'),
-      });
+      setMessages((prevMessages) => [...prevMessages, msg]);
     });
 
     socket.current.on('connect_error', (err) => {
       console.error('connection error:', err.message);
-    });
-
-    socket.current.emit('fetch old messages', {
-      group_id: localStorage.getItem('groupID'),
-      receiver_name: 'General',
-      user_id: localStorage.getItem('userID'),
     });
 
     return () => {
@@ -48,7 +34,7 @@ const ChatWindow = () => {
         socket.current.close();
       }
     };
-  }, [conversationId]);
+  }, []);
 
   useEffect(() => {
     // Scroll to the bottom of the chat window when new messages are added
@@ -66,55 +52,33 @@ const ChatWindow = () => {
 
     const newMessage = {
       content: message,
-      sender: localStorage.getItem('name'),
-      // Add any other relevant message properties
+      sender: user
     };
 
-    try {
-      const response = await fetch('http://localhost:5000/lvconnect/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Add any necessary headers, such as authentication tokens
-        },
-        body: JSON.stringify(newMessage),
-      });
-
-      if (!response.ok) {
-        // Handle errors, maybe show an error message to the user
-        console.error('Failed to post message:', response.statusText);
-      } else {
-        // Clear the input field after a successful post
-        setMessage('');
-        console.log('Message posted successfully');
-        // Fetch updated messages after posting a new message
-        fetchMessages();
-      }
-    } catch (error) {
-      console.error('An error occurred while posting the message:', error);
-    }
+    socket.current.emit('chat message', newMessage);
+    setMessage(''); // Clear the input field after sending
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Prevents the default Enter key behavior (e.g., newline in a textarea)
+      e.preventDefault();
       handleSendMessage();
     }
   };
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch('http://localhost:5000/images/messages'); // Replace with your actual endpoint
-      if (response.ok) {
-        const data = await response.json();
-        setMessages(data);
-      } else {
-        console.error('Failed to fetch messages:', response.statusText);
-      }
+        const response = await fetch(`${import.meta.env.VITE_APP_SOCKET_URL}/lvconnect/messages`); // Use environment variable for the URL
+        if (response.ok) {
+            const data = await response.json();
+            setMessages(data);
+        } else {
+            console.error('Failed to fetch messages:', response.statusText);
+        }
     } catch (error) {
-      console.error('An error occurred while fetching messages:', error);
+        console.error('An error occurred while fetching messages:', error);
     }
-  };
+};
 
   return (
     <div className="h-full p-4" style={{ width: '100vw', backgroundColor: '#f5f7fa' }}>

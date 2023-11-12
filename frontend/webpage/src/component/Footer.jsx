@@ -25,7 +25,7 @@ const Footer = (props) => {
         <input className='mx-2' placeholder='Phone' />
         <button className='rounded-md mx-2 p-1 bg-white'>Subscribe</button>
       </div>
-      <div className="flex justify-between items-center  max-w-5xl text-sm py-10">
+      <div className="flex justify-between items-center  max-w-5xl text-sm py-10 gap-10">
         <div className="mx-3 my-1">
           <h3 className='text-xl'>Contact Us</h3>
           <p>123 Main Street, Bethlehem, PA 18015</p>
@@ -43,7 +43,7 @@ const Footer = (props) => {
           </ul>
         </div>
         <div className="mx-3 my-1 flex flex-col items-center">
-          <img  className="w-24" src={Logo} alt="logo" />
+          <img  className="w-24 mb-6" src={Logo} alt="logo" />
             <p>&copy; 2023 LVConnect. All rights reserved.</p>
         </div>
       </div>

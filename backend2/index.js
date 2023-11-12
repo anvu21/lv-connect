@@ -43,7 +43,7 @@ const jwtSecret = process.env.JWT_SECRET_KEY  // This should be in an environmen
 
 app.post('/signup', async (req, res) => {
   const { username, password, groupId, bio, user_type } = req.body;
-  //console.log(req.body);
+  console.log(req.body);
   //console.log(password);
   //console.log(groupId);
 

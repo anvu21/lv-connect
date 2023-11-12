@@ -25,14 +25,31 @@
 * Allows users to chat with other members of the Lehigh Valley to promote connectedness and communication
 * Users can ask questions, voice concerns, or just chat
 
-### View Local Business Promotions
-
-* Displays various promotions offered by local businesses to encourage Lehigh Valley residents to support them
-* Allows business owners to promote their own deals and provides residents easy access to view them
-
 ## Architecture Diagram
 
 ![ArchitectureDiagram](ArchitectureDiagram.png "Archictecture Diagram")
+
+## Technologies Used
+
+### AWS Amplify
+
+* Hosts our frontend
+
+### React
+
+* Framework used to build the frontend
+
+### S3 Buckets
+
+* Used to easily upload and store images from the users
+
+### Heroku
+
+* Hosts our backend
+
+### Socket.io
+
+* Provides chatroom functionality to get instant updates and allows for real-time messaging
 
 ## Potential Impact
 

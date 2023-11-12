@@ -2,10 +2,14 @@ import NavBar from "../Navbar.jsx";
 import styles from './styles.module.css';
 import React, { useState, useEffect } from 'react';
 import VolunteerEvent from "./VolunteerEvent.jsx";
+import AddVolEvent from "./AddVolEvent.jsx";
 
 const Volunteer = () => {
 
     const [events, setEvents] = useState([]);
+
+    const [addEvent, setAddEvent] = useState(false);
+
     useEffect( () => {
         setEvents([...events, {
         "id": "1",
@@ -31,12 +35,20 @@ const Volunteer = () => {
         <NavBar />
         <div>
             <h1 className='my-5 text-3xl'>Volunteer Opportunities</h1>
+            {addEvent && 
+              <AddVolEvent setAdd={setAddEvent} />
+            }
+            {!addEvent && 
+              <>
+                <button className='rounded-md mx-2 my-1 p-1 border border-black w-48' onClick={() => setAddEvent(true)}>Add an Opportunity</button>
+              </>
+            }
             {
-          events.map(event => (
-            <VolunteerEvent name={event.name} date={event.date} location={event.location}
-              posted={event.posted} description={event.description} key={event.id}/>
-          ))
-        }
+              events.map(event => (
+                <VolunteerEvent name={event.name} date={event.date} location={event.location}
+                  posted={event.posted} description={event.description} key={event.id}/>
+              ))
+            }
         </div>
         </>
     )

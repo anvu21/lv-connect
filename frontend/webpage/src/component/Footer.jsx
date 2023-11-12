@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import Facebook from "./facebook.png";
+import Facebook from "../assets/facebook.png";
 
 const Footer = (props) => {
   

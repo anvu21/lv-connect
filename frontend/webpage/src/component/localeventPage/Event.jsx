@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import EventComment from './EventComment';
-import Comments from './Comments.png';
+import Comments from '../../assets/Comments.png';
 
 const Event = (props) => {
   const [showComments, setShowComments] = useState(false);

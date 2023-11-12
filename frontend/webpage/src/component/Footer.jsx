@@ -10,12 +10,12 @@ const Footer = (props) => {
   return (
     <>
     <footer className="flex flex-col justify-around items-center m-0 text-white " style={{position:"absolute", left:0, right:0, backgroundColor:"#00539b"}}>
-      <div className='flex content-between justify-between'>
-        <h3>Stay Informed</h3>
+      <div className='flex justify-between' style={{width:"750px"}}>
+        <h3 className='text-xl'>Stay Informed</h3>
         <div className="flex">
-          <img className='w-6' src={Facebook} alt="facebook" />
-          <img className='w-6' src={Twitter} alt="twitter" />
-          <img className='w-6' src={Instagram} alt="instagram" />
+          <a href="https://www.facebook.com"><img className='w-6 mx-1' src={Facebook} alt="facebook" /></a>
+          <a href="https://www.twitter.com"><img className='w-6 mx-1' src={Twitter} alt="twitter" /></a>
+          <a href="https://www.instagram.com"><img className='w-6 mx-1' src={Instagram} alt="instagram" /></a>
         </div>
       </div>
       <div className='flex my-8' style={{color:"#00539b"}}>

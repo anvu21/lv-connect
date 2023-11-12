@@ -54,7 +54,7 @@ const AddEvent = (props) => {
               }
             });
               
-            setData({ text: "", up_down: "" });
+            setData({ text: ""});
             setFile(null);
             document.getElementById('imagePreview').src = "";
             //fetchPosts();

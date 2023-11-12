@@ -68,3 +68,8 @@
 	border-radius: 5px;
 	text-align: center;
 }
+
+.custom-message-width {
+    max-width: 75%;
+    width: 100%;
+}

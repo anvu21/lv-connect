@@ -2,7 +2,7 @@
 CREATE_ALL_TABLES='''
         -- event table
         CREATE TABLE event (
-            id SERIAL PRIMARY KEY,
+            id VARCHAR(255) PRIMARY KEY,
             name VARCHAR(255),
             description TEXT,
             location VARCHAR(255),
@@ -15,7 +15,7 @@ CREATE_ALL_TABLES='''
 
         -- user table
         CREATE TABLE users (
-            id SERIAL PRIMARY KEY,
+            id VARCHAR(255) PRIMARY KEY,
             name VARCHAR(255),
             username VARCHAR(255),
             email VARCHAR(255),
@@ -26,7 +26,7 @@ CREATE_ALL_TABLES='''
 
         -- business table
         CREATE TABLE business (
-            id SERIAL PRIMARY KEY,
+            id VARCHAR(255) PRIMARY KEY,
             name VARCHAR(255),
             industry VARCHAR(255),
             address VARCHAR(255),
@@ -37,27 +37,26 @@ CREATE_ALL_TABLES='''
 
         -- chat table
         CREATE TABLE chat (
-            id SERIAL PRIMARY KEY,
+            id VARCHAR(255) PRIMARY KEY,
             name VARCHAR(255),
             description TEXT,
-            messageCount INT,
             date TIMESTAMP
         );
 
         -- message table
         CREATE TABLE message (
-            id SERIAL PRIMARY KEY,
-            user_id INT REFERENCES users(id),
-            chat_id INT REFERENCES chat(id),
+            id VARCHAR(255) PRIMARY KEY,
+            user_id VARCHAR(255) REFERENCES users(id),
+            chat_id VARCHAR(255) REFERENCES chat(id),
             contents TEXT,
             date TIMESTAMP
         );
 
         -- comment table 
         CREATE TABLE comment (
-            id SERIAL PRIMARY KEY,
-            user_id INT REFERENCES users(id),
-            event_id INT REFERENCES event(id),
+            id VARCHAR(255) PRIMARY KEY,
+            user_id VARCHAR(255)REFERENCES users(id),
+            event_id VARCHAR(255) REFERENCES event(id),
             contents TEXT,
             date TIMESTAMP
         );
@@ -86,35 +85,50 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS event;
 '''
 
-INSERT_USER = """
-            INSERT INTO users (id, businessId, name, username, email, bio, dateSignUp)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-            ON CONFLICT (username) DO NOTHING;
-        """
-
-INSERT_USER_NO_DT = """
-            INSERT INTO users (id, businessId, name, username, email, bio)
-            VALUES (%s, %s, %s, %s, %s, %s)
-            ON CONFLICT (username) DO NOTHING;
-        """
-        
-RETRIEVE_USERS = '''
-SELECT * FROM users;
+INSERT_USER = '''
+INSERT INTO users (id, businessId, name, username, email, bio, dateSignUp)
+VALUES (%s, %s, %s, %s, %s, %s, %s)
+ON CONFLICT (username) DO NOTHING;
 '''
 
-TEST_TABLE_CREATE = """
-        CREATE TABLE usertest (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255),
-            username VARCHAR(255),
-            email VARCHAR(255),
-            bio TEXT,
-            businessId VARCHAR(255)
-        );
-"""
+INSERT_USER_V2 = '''
+INSERT INTO users (id, datesignup, name, username, email, bio, businessid)
+VALUES (%s, %s, %s, %s, %s, %s, %s);
+'''
+        
+RETRIEVE_USERS = '''
+SELECT id, name, username, email, bio, CAST(dateSignUp AS VARCHAR), businessId FROM users;
+'''
 
-VIEW_ALL_TABLES = """
+RETRIEVE_USERS_BY_ID = '''
+SELECT id, name, username, email, bio, CAST(dateSignUp AS VARCHAR), businessId FROM users where id=%s;
+'''
+
+TEST_TABLE_CREATE = '''
+CREATE TABLE usertest (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    username VARCHAR(255),
+    email VARCHAR(255),
+    bio TEXT,
+    businessId VARCHAR(255)
+);
+'''
+
+VIEW_ALL_TABLES = '''
 SELECT table_name, column_name, data_type
 FROM information_schema.columns
 WHERE table_schema = 'public';
-"""
+'''
+
+TEST_USER = '''
+INSERT INTO users (id, datesignup, name, username, email, bio, businessid)
+VALUES
+  (1, '2023-11-11 12:34:56', 'John Doe', 'johndoe123', 'john.doe@example.com', 'A bio about John Doe', 'business123'),
+  (2, '2023-11-12 08:45:30', 'Jane Smith', 'janesmith456', 'jane.smith@example.com', 'A bio about Jane Smith', 'business456');
+'''
+
+EVENT_INSERT = '''
+INSERT INTO event (id, name, description, location, pictures, date, datePosted, type, comments)
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
+'''

@@ -9,6 +9,19 @@ database = Database()
 
 # Service for handling normal events
 class EventService(): 
+    
+    def addNewEvent(self, request_data):
+        #INSERT INTO event (id, name, description, location, pictures, date, datePosted, type, comments)
+        dateSignUp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        event = Event(
+            id=str(uuid.uuid4()),
+            business_id=request_data.get('business_id', None),
+            name=request_data.get('name', None),
+            username=request_data.get('username', None),
+            email=request_data.get('email', None),
+            bio=request_data.get('bio', None),
+            dateSignUp=str(dateSignUp)
+        )
     def handleEventRequest(self, queryParam):
         if (queryParam): 
             # Query DB to find event by ID
@@ -74,7 +87,7 @@ class BusinessEventService():
             
 class UserService():
     def addUser(self, request_data):
-        dateSignUp = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        dateSignUp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         user_data = User(
             id=str(uuid.uuid4()),
             business_id=request_data.get('business_id', None),
@@ -88,4 +101,8 @@ class UserService():
         return {str(key): str(value) for key, value in user_data.__dict__.items()}
     
     def getUsers(self):
-        return database.getUsers()
+        return database.getUsers(None)
+    
+    def getUserById(self, request_data):
+        id = request_data.get('id', None),
+        return database.getUsers(id)

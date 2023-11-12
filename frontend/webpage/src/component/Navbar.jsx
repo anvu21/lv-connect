@@ -47,8 +47,16 @@ const Navbar = () => {
         <span className="block w-6 h-px mb-1 bg-gray-800"></span>
         <span className="block w-6 h-px bg-gray-800"></span>
       </div>
-      
-     
+
+
+      <div className="hidden md:flex items-center">
+        <button className="flex items-center justify-center px-4 py-2 border rounded-full hover:bg-gray-100">
+          {/* FontAwesome Icon */}
+          <FontAwesomeIcon icon={faUser} />
+          <span className="ml-2">Login</span>
+        </button>
+      </div>
+
 
     </nav>
   );

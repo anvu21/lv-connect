@@ -34,13 +34,20 @@ const Navbar = () => {
     <Link to={link.path} className="hover:text-blue-600">{link.title}</Link>
         </li>
   ))}
+  <button className="flex items-center justify-center px-4 py-2 border rounded-full hover:bg-gray-100">
+          
+          
+          <span className="ml-2">Login</span>
+        </button>
 </ul>
+
 
       <div className="md:hidden cursor-pointer" onClick={handleToggle}>
         <span className="block w-6 h-px mb-1 bg-gray-800"></span>
         <span className="block w-6 h-px mb-1 bg-gray-800"></span>
         <span className="block w-6 h-px bg-gray-800"></span>
       </div>
+
 
       <div className="hidden md:flex items-center">
         <button className="flex items-center justify-center px-4 py-2 border rounded-full hover:bg-gray-100">
@@ -49,6 +56,7 @@ const Navbar = () => {
           <span className="ml-2">Login</span>
         </button>
       </div>
+
 
     </nav>
   );

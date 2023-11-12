@@ -15,7 +15,7 @@ const AddBusinessEvent = (props) => {
 
     return (
         <>
-        <div className='bg-gray-200 m-2'>
+        <div className='bg-gray-200 m-2 w-fit' style={{marginLeft:'auto', marginRight:'auto'}}>
             <div className='flex flex-col items-start justify-around'>
                 <div className='m-2'>
                     <label htmlFor="name">Name: </label>

@@ -230,56 +230,14 @@ router.post('/profile/upload', upload.single('image'), async (req, res) => {
 
 
 //Post images get
-router.get("/posts/:groupId", async (req, res) => {
-  try {
-    const { groupId } = req.params;
-    console.log(groupId);
-    pool.query('SELECT posts.*, users.username,users.profile_pic_url FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.group_id = $1', [groupId], async (error, results) => {
-      if (error) {
-        console.error(error);
-        res.status(500).send(error);
-        return;
-      }
-      const posts = results.rows;
 
-      for (let post of posts) {
-        // Check if post.image_url is not null or empty
-        if (post.image_url) {
-          post.imageUrl = await getSignedUrl(
-            s3,
-            new GetObjectCommand({
-              Bucket: process.env.BUCKET_NAME,
-              Key: post.image_url
-            }),
-            { expiresIn: 3600 }
-          );
-        }
-
-        // Check if post.profile_pic_url is not null or empty
-        if (post.profile_pic_url) {
-          post.profile_pic_url = await getSignedUrl(
-            s3,
-            new GetObjectCommand({
-              Bucket: process.env.BUCKET_NAME,
-              Key: post.profile_pic_url
-            }),
-            { expiresIn: 3600 }
-          );
-        }
-      }
-
-      res.send(posts);
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('An error occurred during the operation.');
-  }
-});
 
 //Post images get
 router.get("/posts/local", async (req, res) => {
+  console.log("CHECK")
+  let event = 'EVE'
   try {
-    pool.query('SELECT posts.*, users.username,users.profile_pic_url FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.post_type = $1', ["EVE"], async (error, results) => {
+    pool.query('SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.post_type = $1', [event], async (error, results) => {
       if (error) {
         console.error(error);
         res.status(500).send(error);
@@ -324,7 +282,7 @@ router.get("/posts/local", async (req, res) => {
 //Post images get
 router.get("/posts/volunteer", async (req, res) => {
   try {
-    pool.query('SELECT posts.*, users.username,users.profile_pic_url FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.post_type = $1', ["VOL"], async (error, results) => {
+    pool.query('SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.post_type = $1', ["VOL"], async (error, results) => {
       if (error) {
         console.error(error);
         res.status(500).send(error);
@@ -369,7 +327,7 @@ router.get("/posts/volunteer", async (req, res) => {
 //Post images get
 router.get("/posts/business", async (req, res) => {
   try {
-    pool.query('SELECT posts.*, users.username,users.profile_pic_url FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.post_type = $1', ["BUS"], async (error, results) => {
+    pool.query('SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.post_type = $1', ["BUS"], async (error, results) => {
       if (error) {
         console.error(error);
         res.status(500).send(error);
@@ -426,7 +384,7 @@ router.get("/users_posts/:username", async (req, res) => {
     console.log(userProfile);
 
 
-    pool.query('SELECT posts.*, users.username, users.profile_pic_url FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.user_id = $1 ', [userProfile.id], async (error, results) => {
+    pool.query('SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.user_id = $1 ', [userProfile.id], async (error, results) => {
     if (error) {
       console.error(error);
       res.status(500).send(error);

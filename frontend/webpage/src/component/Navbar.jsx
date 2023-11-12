@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { navLinks } from './constants';
 import logo from '../assets/Lehigh-Valley-connect.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Navbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
@@ -40,6 +41,15 @@ const Navbar = () => {
         <span className="block w-6 h-px mb-1 bg-gray-800"></span>
         <span className="block w-6 h-px bg-gray-800"></span>
       </div>
+
+      <div className="hidden md:flex items-center">
+        <button className="flex items-center justify-center px-4 py-2 border rounded-full hover:bg-gray-100">
+          {/* FontAwesome Icon */}
+          <FontAwesomeIcon icon={faUser} />
+          <span className="ml-2">Login</span>
+        </button>
+      </div>
+
     </nav>
   );
 };

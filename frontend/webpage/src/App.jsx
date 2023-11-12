@@ -6,7 +6,8 @@ import Local from './component/localeventPage/localEvent';
 import Business from './component/Business/business';
 
 import Chat from './component/Chat/chatroom';
-import Volunteer from './component/volunteerPage/Volunteer';
+import Volunteer from './component/Volunteer/volunteer';
+import Auth from './component/Authpage';
 
 import Footer from './component/Footer.jsx';
 import './App.css'
@@ -29,6 +30,7 @@ function App() {
           <Route path="/chat-room" element={<Chat />}/>
           <Route path="/volunteer-opportunities" element={<Volunteer />}/>
           <Route path="/*" element={<Navigate replace to="/main" />} />
+          <Route path="/auth" element={<Auth />}/>
 
         </Routes>
         <Footer />

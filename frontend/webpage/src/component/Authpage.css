@@ -1,0 +1,26 @@
+.auth-container {
+    position: relative;
+    width: 300px; /* Adjust size as needed */
+    margin: auto;
+  }
+  
+  .forms-container {
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .login-form,
+  .signup-form {
+    width: 50%; /* Adjust as needed */
+    flex-shrink: 0;
+  }
+  
+  .show-signup {
+    transform: translateX(-50%);
+  }
+  
+  .toggle-btn {
+    margin-top: 20px;
+    /* Style your toggle button */
+  }
+  

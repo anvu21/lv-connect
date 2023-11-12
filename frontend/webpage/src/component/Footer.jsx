@@ -7,6 +7,12 @@ import Instagram from "../assets/instagram.png";
 import Logo from "../assets/Lehigh-valley-connect.png";
 
 const Footer = (props) => {
+
+  const clearSub = () => {
+    const name = document.getElementById('subName');
+    const email = document.getElementById('email');
+    const phone = document.getElementById('subPhone');
+  }
   
   return (
     <>
@@ -20,9 +26,9 @@ const Footer = (props) => {
         </div>
       </div>
       <div className='flex my-8 py-5 flex-wrap' style={{color:"#00539b"}}>
-        <input className='mx-2' required placeholder='Name *' />
-        <input className='mx-2' required placeholder='Email *' />
-        <input className='mx-2' placeholder='Phone' />
+        <input className='mx-2' id="subName" type="text" required placeholder='Name *' />
+        <input className='mx-2' id="subEmail" type="email" required placeholder='Email *' />
+        <input className='mx-2' id="subPhone" type="tel" placeholder='Phone' />
         <button className='rounded-md mx-2 p-1 bg-white'>Subscribe</button>
       </div>
       <div className="flex justify-between items-center  max-w-5xl text-sm py-10 gap-10">

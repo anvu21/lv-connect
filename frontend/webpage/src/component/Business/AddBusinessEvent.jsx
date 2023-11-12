@@ -10,6 +10,22 @@ const AddBusinessEvent = (props) => {
         const date = document.getElementById("date").value;
         const description = document.getElementById("description").value;
         const location = document.getElementById("location").value;
+        if(name == ""){
+            window.alert("Please enter a name");
+            return;
+        }
+        if(date == ""){
+            window.alert("Please enter a date");
+            return;
+        }
+        if(description == ""){
+            window.alert("Please enter a description");
+            return;
+        }
+        if(location == ""){
+            window.alert("Please enter a location");
+            return;
+        }
         props.setAdd(false);
     }
     const cancel = () => {
@@ -39,6 +55,10 @@ const AddBusinessEvent = (props) => {
                 <div className='m-2  w-full flex justify-between'>
                     <label htmlFor="description">Description: </label>
                     <textarea className='mr-5' id="description" name="description" rows="4" cols="50" ></textarea>
+                </div>
+                <div className='m-2 w-full flex justify-between'>
+                    <label htmlFor="image">Image: </label>
+                    <input  className='mr-5' id="image" name="image" type="file" accept="image/*" />
                 </div>
             </div>
             <button className="m-2 border-black border rounded-md py-1 px-2" id="contentSave" onClick={submit}>Save</button>

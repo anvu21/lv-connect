@@ -62,7 +62,7 @@ const CreateAcct = () => {
         headers: {
           'Content-Type': 'application/json'
         }
-      });
+      }); 
 		  
       
 

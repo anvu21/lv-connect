@@ -10,6 +10,22 @@ const AddVolEvent = (props) => {
         const date = document.getElementById("date").value;
         const description = document.getElementById("description").value;
         const location = document.getElementById("location").value;
+        if(name == ""){
+            window.alert("Please enter a name");
+            return;
+        }
+        if(date == ""){
+            window.alert("Please enter a date");
+            return;
+        }
+        if(description == ""){
+            window.alert("Please enter a description");
+            return;
+        }
+        if(location == ""){
+            window.alert("Please enter a location");
+            return;
+        }
         props.setAdd(false);
     }
 

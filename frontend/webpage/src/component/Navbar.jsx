@@ -17,7 +17,7 @@ const Navbar = () => {
       <div className="flex items-center"> {/* Flex container for logo and text */}
         <img src={logo} alt="logo" className="w-8 h-8 object-contain mr-2"/> {/* Logo with right margin */}
         <div className="text-xl font-bold">
-          <Link to="/" style={{ color: '#00539b' }}>Lvconnect</Link>
+          <Link to="/" style={{ color: '#00539b' }}>LVConnect</Link>
         </div>
       </div>
 

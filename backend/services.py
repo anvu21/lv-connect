@@ -9,6 +9,19 @@ database = Database()
 
 # Service for handling normal events
 class EventService(): 
+    
+    def addNewEvent(self, request_data):
+        #INSERT INTO event (id, name, description, location, pictures, date, datePosted, type, comments)
+        dateSignUp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        event = Event(
+            id=str(uuid.uuid4()),
+            business_id=request_data.get('business_id', None),
+            name=request_data.get('name', None),
+            username=request_data.get('username', None),
+            email=request_data.get('email', None),
+            bio=request_data.get('bio', None),
+            dateSignUp=str(dateSignUp)
+        )
     def handleEventRequest(self, queryParam):
         if (queryParam): 
             # Query DB to find event by ID

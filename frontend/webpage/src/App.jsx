@@ -3,7 +3,11 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Main from './component/mainpage/Main';
 import Local from './component/localeventPage/localEvent';
-import Volunteer from './component/volunteerPage/Volunteer';
+import Business from './component/Business/business';
+
+import Chat from './component/Chat/chatroom';
+import Volunteer from './component/Volunteer/volunteer';
+import Auth from './component/Authpage';
 
 import Footer from './component/Footer.jsx';
 import './App.css'
@@ -22,9 +26,11 @@ function App() {
           
           <Route path="/" element={<Navigate replace to="/main" />} />
           <Route path="/local" element={<Local />}/>
-          <Route path="/volunteer" element={<Volunteer />}/>
-          
+          <Route path="/local-business-support" element={<Business />}/>
+          <Route path="/chat-room" element={<Chat />}/>
+          <Route path="/volunteer-opportunities" element={<Volunteer />}/>
           <Route path="/*" element={<Navigate replace to="/main" />} />
+          <Route path="/auth" element={<Auth />}/>
 
         </Routes>
         <Footer />

@@ -36,12 +36,6 @@ const localEvent = () => {
       <NavBar />
       <div className='w-11/12 flex flex-col items-center' style={{marginLeft:'auto', marginRight:'auto'}}>
         <h1 className='my-5 text-3xl'>Local Events</h1>
-        {
-          events.map(event => (
-            <Event name={event.name} date={event.date} location={event.location}
-              posted={event.posted} description={event.description} key={event.id}/>
-          ))
-        }
         {addEvent && 
           <AddEvent setAdd={setAddEvent} />
         }
@@ -50,6 +44,13 @@ const localEvent = () => {
             <button className='rounded-md mx-2 my-1 p-1 border border-black w-40' onClick={() => setAddEvent(true)}>Add an Event</button>
           </>
         }
+        {
+          events.map(event => (
+            <Event name={event.name} date={event.date} location={event.location}
+              posted={event.posted} description={event.description} key={event.id}/>
+          ))
+        }
+        
         
       </div>
     </>

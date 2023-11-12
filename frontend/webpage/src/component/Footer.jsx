@@ -11,7 +11,7 @@ const Footer = (props) => {
   return (
     <>
     <footer className="flex flex-col justify-around items-center m-0 text-white py-5" style={{position:"absolute", left:0, right:0, backgroundColor:"#00539b"}}>
-      <div className='flex justify-between py-5' style={{width:"750px"}}>
+      <div className='flex justify-between py-5 flex-wrap' style={{minWidth:"50vw", maxWidth: "750px"}}>
         <h3 className='text-xl'>Stay Informed</h3>
         <div className="flex">
           <a href="https://www.facebook.com"><img className='w-6 mx-1' src={Facebook} alt="facebook" /></a>
@@ -19,7 +19,7 @@ const Footer = (props) => {
           <a href="https://www.instagram.com"><img className='w-6 mx-1' src={Instagram} alt="instagram" /></a>
         </div>
       </div>
-      <div className='flex my-8 py-5' style={{color:"#00539b"}}>
+      <div className='flex my-8 py-5 flex-wrap' style={{color:"#00539b"}}>
         <input className='mx-2' required placeholder='Name *' />
         <input className='mx-2' required placeholder='Email *' />
         <input className='mx-2' placeholder='Phone' />

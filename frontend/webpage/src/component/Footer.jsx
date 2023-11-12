@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Facebook from "../assets/facebook.png";
+import Twitter from "../assets/twitter.png";
+import Instagram from "../assets/instagram.png";
 
 const Footer = (props) => {
   
@@ -12,8 +14,8 @@ const Footer = (props) => {
         <h3>Stay Informed</h3>
         <div className="flex">
           <img className='w-6' src={Facebook} alt="facebook" />
-          <img className='w-6' src={Facebook} alt="facebook" />
-          <img className='w-6' src={Facebook} alt="facebook" />
+          <img className='w-6' src={Twitter} alt="twitter" />
+          <img className='w-6' src={Instagram} alt="instagram" />
         </div>
       </div>
       <div className='flex my-8' style={{color:"#00539b"}}>

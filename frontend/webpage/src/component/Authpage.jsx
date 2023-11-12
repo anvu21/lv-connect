@@ -1,114 +1,95 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import './AuthPage.css'; // Assuming you have basic CSS for layout
-import Navbar from './Navbar.jsx'; // Make sure the path is correct
-import axios from 'axios';
+import styles from "./styles.module.css";
+import React, { useState } from "react";
+import axios from "axios";
+import "./AuthPage.css"; // Assuming you have basic CSS for layout
+import Navbar from "./Navbar.jsx";
 
 const AuthPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [data, setData] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
 
-  const toggleForm = () => {
-    setIsLogin(!isLogin);
-  };
-
-  const variants = {
-    initial: {
-      x: isLogin ? 0 : '-50%',
-    },
-    animate: {
-      x: isLogin ? 0 : '-50%',
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(isLogin ? '/signin' : '/signup', formData);
-
-      // Handle the response, e.g., store user token in state or localStorage
-      console.log(response.data);
+      const url = `${import.meta.env.VITE_APP_API_URL}/signin`;
+      const { data: res } = await axios.post(url, data);
+      console.log(res);
+      if (res.status === 401) {
+        setError("Wrong username or password");
+      } else {
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("name", res.userName);
+        localStorage.setItem("userID", res.userId);
+        localStorage.setItem("groupID", res.groupId);
+        localStorage.setItem("bio", res.bio);
+        //localStorage.setItem('imageUrl', res.imageUrl);
+        window.location = "/";
+      }
     } catch (error) {
-      // Handle errors, e.g., display an error message to the user
-      console.error('Error:', error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
     }
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="flex justify-center items-center h-screen">
-        <div className="max-w-2xl mx-auto ">
-          <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 ">
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <h3 className="text-xl font-medium text-gray-900">
-                Sign into your LVConnect account
-              </h3>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="text-sm font-medium text-gray-900 block mb-2"
-                >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="name@company.com"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="text-sm font-medium text-gray-900 block mb-2"
-                >
-                  Your password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Login to your account
-              </button>
-              <div className="text-sm font-medium text-gray-500">
-                Not registered?{' '}
-                <Link to="/signup" className="text-blue-700 hover:underline">
-                  Create account
-                </Link>
-              </div>
-            </form>
+    <div>
+      <div className="screen">
+        <div
+          className="bg-hero-pattern bg-cover bg-no-repeat bg-center"
+          style={{ height: "10vh" }}
+        >
+          <Navbar />
+          <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <h1 className="text-white text-6xl font-bold">Lehigh Valley</h1>
           </div>
         </div>
+
+        <div className="login_box mt-10"> {/* Adjust the margin top (mt) to move the login box down */}
+          <div className="login_text">Login</div>
+
+          <form className="input_contain" onSubmit={handleSubmit}>
+            <input
+              type="username"
+              placeholder="Username"
+              name="username"
+              onChange={handleChange}
+              value={data.username}
+              required
+              className={styles.input}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={handleChange}
+              value={data.password}
+              required
+              className={styles.input}
+            />
+            {error && <div className={styles.error_msg}>{error}</div>}
+
+            <button type="submit" className={styles.login_btn_pos}>
+              <div className={styles.login_btn}>Sign In</div>
+            </button>
+            <div className={styles.or}>or</div>
+            <button className={styles.acct_btn_pos}>
+              <a className={styles.acct_btn} href="/create-account">
+                Create new account
+              </a>
+            </button>
+          </form>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

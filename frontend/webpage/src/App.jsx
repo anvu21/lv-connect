@@ -8,7 +8,7 @@ import Business from './component/Business/business';
 import Chat from './component/Chat/chatroom';
 import Volunteer from './component/Volunteer/volunteer';
 import Auth from './component/Authpage';
-import Signup from './component/Signup.jsx';
+import CreateAcct from './component/CreateAcct.jsx';
 
 import Footer from './component/Footer.jsx';
 import './App.css'
@@ -32,7 +32,8 @@ function App() {
           <Route path="/volunteer-opportunities" element={<Volunteer />}/>
           <Route path="/*" element={<Navigate replace to="/main" />} />
           <Route path="/auth" element={<Auth />}/>
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/create-account" element={<CreateAcct />}/>
+
 
         </Routes>
         <Footer />

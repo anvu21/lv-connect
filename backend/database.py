@@ -50,9 +50,20 @@ class Database():
             )
             cursor = engine.cursor()
             cursor.execute(VIEW_ALL_TABLES)
-            results = cursor.fetchall()
+            table_columns = cursor.fetchall()
             engine.commit()
-            return results
+            
+            tables_and_columns = {}
+            for row in table_columns:
+                table_name = row[0]
+                column_name = row[1]
+                data_type = row[2]
+
+                if table_name not in tables_and_columns:
+                    tables_and_columns[table_name] = []
+
+                tables_and_columns[table_name].append((column_name, data_type))
+            return tables_and_columns
         except Exception as e:
             return "Database setup failed due to {}".format(e)
          

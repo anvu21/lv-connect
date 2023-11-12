@@ -25,6 +25,11 @@
 * Allows users to chat with other members of the Lehigh Valley to promote connectedness and communication
 * Users can ask questions, voice concerns, or just chat
 
+### Login System
+
+* Salted and hashed our passwords in backend to ensure security
+* Injected JWT token into cookies to keep users logged in
+
 ## Architecture Diagram
 
 ![ArchitectureDiagram](ArchitectureDiagram.png "Archictecture Diagram")

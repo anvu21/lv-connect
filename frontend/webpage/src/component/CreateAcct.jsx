@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import './AuthPage.css'; // Assuming you have basic CSS for layout
-import Navbar from "./Navbar.jsx";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";

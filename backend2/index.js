@@ -432,8 +432,16 @@ io.on('connection', (socket) => {
       const values = [user_id, content];
       await pool.query(query, values);
 
+      
       // Emit the message to all users in the message board
-      io.to('message-board').emit('chat message', data);
+      const messageToSend = {
+        id: data.id,
+        content: data.content,
+        sender_name: user.username, // Assuming you have the username
+        timestamp: new Date() // Set the timestamp
+      };
+      io.to('message-board').emit('chat message', messageToSend);
+    
     } catch (error) {
       console.error('Error executing query', error.stack);
       socket.emit('chat message', JSON.stringify({ error: 'Could not save message' }));

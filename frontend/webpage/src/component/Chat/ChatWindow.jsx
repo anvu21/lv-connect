@@ -18,11 +18,33 @@ const ChatWindow = () => {
     });
 
     // Fetch historic messages when the component mounts
-    fetchMessages();
+    //fetchMessages();
 
-    // Handle incoming chat messages
-    socket.current.on('chat message', (msg) => {
-      setMessages((prevMessages) => [...prevMessages, msg]);
+    
+    socket.current.emit('join conversation');
+
+    socket.current.emit('fetch old messages');
+
+    socket.current.on('old messages', (oldMessages) => {
+      // Transform oldMessages to match the structure of the messages state
+      const transformedMessages = oldMessages.map(message => ({
+        id: message.id,
+        content: message.content,
+        sender: message.username,
+        timestamp: new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      }));
+    
+      // Set the messages state to the transformed old messages
+      setMessages(transformedMessages);
+    });
+    socket.current.on('chat message', (newMessage) => {
+      const transformedMessage = {
+        id: newMessage.id, // Make sure newMessage has an id
+        content: newMessage.content,
+        sender: newMessage.sender_name, // Assuming the server sends sender_name
+        timestamp: new Date(newMessage.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      setMessages((prevMessages) => [...prevMessages, transformedMessage]);
     });
 
     socket.current.on('connect_error', (err) => {

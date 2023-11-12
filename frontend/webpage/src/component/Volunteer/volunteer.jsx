@@ -33,7 +33,7 @@ const Volunteer = () => {
     return (
         <>
         <NavBar />
-        <div>
+        <div className="w-11/12 flex flex-col items-center" style={{marginLeft:'auto', marginRight:'auto'}}>
             <h1 className='my-5 text-3xl'>Volunteer Opportunities</h1>
             {addEvent && 
               <AddVolEvent setAdd={setAddEvent} />

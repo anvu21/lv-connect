@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import EventComment from './EventComment';
 import Comments from '../../assets/Comments.png';
+import AddComment from './AddComment';
 
 const Event = (props) => {
   const [showComments, setShowComments] = useState(false);
 
   const [comments, setComments] = useState([]);
+
+  const [addingComment, setAddingComment] = useState(false);
 
   useEffect( () => {
     setComments([...comments, {
@@ -40,6 +43,16 @@ const Event = (props) => {
             <EventComment user={comment.user} date={comment.date} content={comment.content} key={comment.id} />
         ))
     }
+    { showComments && !addingComment &&
+          <>
+            <button className='rounded-md mx-2 my-1 p-1 border border-black w-40' onClick={() => setAddingComment(true)}>Add a Comment</button>
+          </>
+      }
+    { showComments && addingComment &&
+          <>
+            <AddComment setAdd={setAddingComment}/>
+          </>
+      }
     </>
   )
 }

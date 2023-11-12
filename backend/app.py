@@ -18,9 +18,9 @@ database = Database()
 userService = UserService()
 
 class Event(Resource):
-    def get(self):
+    def post(self):
         id = request.args.get('id') # optional query param
-        return jsonify(eventService(id))
+        return eventService(id)
     
 class VolunteerEvent(Resource):
     def get(self):

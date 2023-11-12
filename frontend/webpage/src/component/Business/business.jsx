@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Event from "./BusinessEvent.jsx";
 import NavBar from "../Navbar.jsx";
-import AddEvent from './AddBusinessEvent';
+import AddBusinessEvent from './AddBusinessEvent.jsx';
 import BusinessEvent from './BusinessEvent.jsx';
 const business = () => {
 

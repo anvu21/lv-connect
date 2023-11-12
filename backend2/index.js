@@ -193,6 +193,40 @@ app.get('/posts/business', async (req, res) => {
   }
 });
 
+app.post('/message', verifyToken, async (req, res) => {
+  const { messageText } = req.body;
+  const { id: userId } = req.user;
+
+  if (!messageText) {
+    return res.status(400).json({ message: 'Message text is required' });
+  }
+
+  try {
+    const result = await pool.query('INSERT INTO Messages (user_id, content, created_at, updated_at) VALUES ($1, $2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING id', [userId, messageText]);
+
+    return res.status(201).json({ message: 'Message created successfully', messageId: result.rows[0].id });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.get('/messages', async (req, res) => {
+  try {
+    const results = await pool.query(`
+      SELECT messages.*, users.username 
+      FROM messages 
+      INNER JOIN users ON messages.user_id = users.id`);
+
+    res.json(results.rows);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 app.post('/comment', verifyToken, async (req, res) => {
   const { postId, comment_text } = req.body;

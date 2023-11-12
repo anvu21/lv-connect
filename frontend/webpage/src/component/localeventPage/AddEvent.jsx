@@ -58,6 +58,7 @@ const AddEvent = (props) => {
             setFile(null);
             document.getElementById('imagePreview').src = "";
             //fetchPosts();
+            window.location.reload()
           } catch (error) {
             console.error(error);
             alert('Could not create post');

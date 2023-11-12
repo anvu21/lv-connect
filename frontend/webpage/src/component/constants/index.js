@@ -19,11 +19,7 @@ export const navLinks = [
       title: "Chat Room",
       path: "/chat-room",
     },
-    {
-        id: "Business",
-        title: "Local Business Support",
-        path: "/local-business-support",
-      },
+    
   ];
   
   

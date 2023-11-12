@@ -1,63 +1,94 @@
+import styles from './styles.module.css';
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './AuthPage.css'; // Assuming you have basic CSS for layout
 import Navbar from "./Navbar.jsx";
 
 const AuthPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
-
-  const toggleForm = () => {
-    setIsLogin(!isLogin);
-  };
-
-  const variants = {
-    initial: {
-      x: isLogin ? 0 : "-50%",
-    },
-    animate: {
-      x: isLogin ? 0 : "-50%",
-      transition: {
-        duration: 0.5,
-      }
-    }
-  };
+	const [data, setData] = useState({ username: "", password: "" });
+	const [error, setError] = useState("");
+  
+	const handleChange = ({ currentTarget: input }) => {
+	  setData({ ...data, [input.name]: input.value });
+	};
+  
+	const handleSubmit = async (e) => {
+	  e.preventDefault();
+	  try {
+		const url = `${import.meta.env.VITE_APP_API_URL}/signin`;
+		const { data: res } = await axios.post(url, data);
+		console.log(res)
+		if (res.status === 401) {
+		  setError("Wrong username or password");
+		} else {
+		  localStorage.setItem("token", res.token);
+		  localStorage.setItem("name", res.userName);
+      localStorage.setItem("userID", res.userId);
+      localStorage.setItem("groupID", res.groupId);
+      localStorage.setItem("bio", res.bio);
+      //localStorage.setItem('imageUrl', res.imageUrl);
+		  window.location = "/";
+		}
+	  } catch (error) {
+		if (
+		  error.response &&
+		  error.response.status >= 400 &&
+		  error.response.status <= 500
+		) {
+		  setError(error.response.data.message);
+		}
+	  }
+	}
+  
 
   return (
-    <><Navbar />
-    <div className="flex justify-center items-center h-screen">
-    <div className="max-w-2xl mx-auto ">
-    <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 ">
-      <form className="space-y-6" action="#">
-        <h3 className="text-xl font-medium text-gray-900 ">Sign in to our platform</h3>
-        <div>
-          <label htmlFor="email" className="text-sm font-medium text-gray-900 block mb-2 ">Your email</label>
-          <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="name@company.com" required />
-        </div>
-        <div>
-          <label htmlFor="password" className="text-sm font-medium text-gray-900 block mb-2 ">Your password</label>
-          <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
-        </div>
-        <div className="flex items-start">
-          <div className="flex items-center h-5">
-            <input id="remember" aria-describedby="remember" type="checkbox" className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded " required />
-          </div>
-          <div className="text-sm ml-3">
-            <label htmlFor="remember" className="font-medium text-gray-900">Remember me</label>
-          </div>
-          <a href="#" className="text-sm text-blue-700 hover:underline ml-auto ">Lost Password?</a>
-        </div>
-        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Login to your account</button>
-        <div className="text-sm font-medium text-gray-500 ">
-          Not registered? <a href="#" className="text-blue-700 hover:underline "><Link to="/create-account">Create account</Link></a>
-        </div>
-      </form>
-    </div>
-  </div>
+    <div>
+      <div className={styles.screen}>
 
-  </div>
-  </>
-  );
-};
+        <div className={styles.logo_pos}>
+          <img className={styles.logo} src="/HiLo Logo.png" alt="Logo"/>
+        </div> 
+
+        <div className={styles.login_box}>
+          <div className={styles.login_text}>Login</div>
+            
+          <form className={styles.input_contain} onSubmit={handleSubmit}>
+            <input
+              type="username"
+              placeholder="Username"
+              name="username"
+              onChange={handleChange}
+              value={data.username}
+              required
+              className={styles.input}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={handleChange}
+              value={data.password}
+              required
+              className={styles.input}
+            />
+            {error && <div className={styles.error_msg}>{error}</div>}
+
+            <button type="submit" className={styles.login_btn_pos}>
+              <div className={styles.login_btn}>Sign In</div>
+            </button>
+            <div className={styles.or}>or</div>
+            <button className={styles.acct_btn_pos}>
+              <a className={styles.acct_btn} href="/signup">Create new account</a>
+            </button>
+          </form>
+         
+
+        </div>
+        
+      </div>
+    </div>
+  )
+}
+
 
 export default AuthPage;

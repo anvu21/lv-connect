@@ -85,7 +85,7 @@ router.post('/upload',verifyToken, upload.single('image'), async (req, res) => {
   }
 });
 
-router.post('/upload/v2', upload.single('image'), async (req, res) => {//verifyToken,
+router.post('/upload/v2',verifyToken, upload.single('image'), async (req, res) => {//verifyToken,
   const file = req.file;
   // Generate a random string for filename
   let randomName = crypto.randomBytes(16).toString("hex");
@@ -123,12 +123,15 @@ router.post('/upload/v2', upload.single('image'), async (req, res) => {//verifyT
 
   
   let text  = req.body.text;
-  //const { id: userId } = req.user;
+  const { id: userId } = req.user;
+  console.log(userId)
+  console.log("echec")
+
   //console.log(req.body)
   //const { id: userId } = req.user;
-  let userId = req.body.userId;
+  //let userId = req.body.userId;
  //console.log(userId)
-  let group_id = req.body.group_id
+  let group_id = 1
   let image_url = newFileName
   let up_down = "e"
   let title = req.body.title

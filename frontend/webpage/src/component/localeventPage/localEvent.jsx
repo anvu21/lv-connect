@@ -9,6 +9,8 @@ import AddEvent from './AddEvent';
 const localEvent = () => {
 
   const [events, setEvents] = useState([]);
+
+  const [addEvent, setAddEvent] = useState(false);
   useEffect( () => {
     setEvents([...events, {
       "id": "1",
@@ -32,15 +34,24 @@ const localEvent = () => {
   return (
     <>
       <NavBar />
-      <div className='w-11/12 flex flex-col' style={{marginLeft:'auto', marginRight:'auto'}}>
+      <div className='w-11/12 flex flex-col items-center' style={{marginLeft:'auto', marginRight:'auto'}}>
         <h1 className='my-5 text-3xl'>Local Events</h1>
+        {addEvent && 
+          <AddEvent setAdd={setAddEvent} />
+        }
+        {!addEvent && 
+          <>
+            <button className='rounded-md mx-2 my-1 p-1 border border-black w-40' onClick={() => setAddEvent(true)}>Add an Event</button>
+          </>
+        }
         {
           events.map(event => (
             <Event name={event.name} date={event.date} location={event.location}
               posted={event.posted} description={event.description} key={event.id}/>
           ))
         }
-        <AddEvent />
+        
+        
       </div>
     </>
   )

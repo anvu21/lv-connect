@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const AddEvent = (props) => {
+const AddVolEvent = (props) => {
 
     const submit = () => {
         const name = document.getElementById("name").value;
@@ -39,4 +39,4 @@ const AddEvent = (props) => {
         </>
     )
 }
-export default AddEvent;
+export default AddVolEvent;

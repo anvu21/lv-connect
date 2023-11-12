@@ -13,19 +13,27 @@ const Volunteer = () => {
     useEffect( () => {
         setEvents([...events, {
         "id": "1",
-        "name": "TestName",
-        "date": "12/13/2023",
-        "location": "27 Memorial Dr W, Bethlehem, PA 18015",
+        "name": "Thanksgiving Volunteering at Trinity Soup Kitchen",
+        "date": "11/25/2023",
+        "location": "75 E Market Street, Bethlehem, PA 18018",
         "posted": "11/01/2023",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Rutrum quisque non tellus orci ac auctor augue mauris. In fermentum posuere urna nec tincidunt. A pellentesque sit amet porttitor. Euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis. Lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt. Libero nunc consequat interdum varius sit amet mattis vulputate enim. Mattis molestie a iaculis at erat pellentesque adipiscing. Netus et malesuada fames ac turpis egestas maecenas pharetra. Habitant morbi tristique senectus et netus et malesuada fames. Condimentum mattis pellentesque id nibh. Mi proin sed libero enim sed faucibus. Amet purus gravida quis blandit turpis cursus. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor. Eu consequat ac felis donec et odio pellentesque diam. Felis imperdiet proin fermentum leo vel orci."
+        "description": "Come give back at the soup kitchen! Spend your holidays helping those who need. We will be serving and cooking food and cleaning up."
         },
         {
         "id": "2",
-        "name": "TestName2",
-        "date": "01/26/2024",
+        "name": "Trash cleanup at the Lehigh River",
+        "date": "11/19/2024",
         "location": "730 High St, Easton, PA 1804",
         "posted": "11/10/2023", 
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ut porttitor leo a. Varius sit amet mattis vulputate enim nulla aliquet. Amet mattis vulputate enim nulla aliquet porttitor. Nec nam aliquam sem et tortor. Volutpat lacus laoreet non curabitur. Mattis aliquam faucibus purus in massa tempor nec. Dolor sit amet consectetur adipiscing elit duis tristique sollicitudin nibh. Morbi non arcu risus quis varius quam quisque. Porttitor leo a diam sollicitudin tempor id eu nisl. Malesuada fames ac turpis egestas maecenas pharetra convallis. Faucibus turpis in eu mi bibendum neque."
+        "description": "Meet at the Lehigh River, we have a goal to collect >= 10 lbs of trash."
+        },
+        {
+          "id": "3",
+          "name": "Volunteer after-school tutor for elementary school students",
+          "date": "11/21/2023",
+          "location": "730 High St, Easton, PA 1804",
+          "posted": "11/15/2023", 
+          "description": "The Caring Place Youth Development Center is looking for a high-school or college student willing to read to and tutor elementary school students.",
         } ]);
     }, []);
 

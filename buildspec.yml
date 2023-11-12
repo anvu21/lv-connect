@@ -9,9 +9,10 @@ frontend:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: frontend/webpage/build
-    files:
-      - '**/*'
+  baseDirectory: frontend/webpage/dist
+  files:
+    - '**/*'
+
   cache:
     paths:
       - frontend/webpage/node_modules/**/*

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import './AuthPage.css'; // Assuming you have basic CSS for layout
+import Navbar from "./Navbar.jsx";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -23,6 +24,7 @@ const AuthPage = () => {
   };
 
   return (
+    <><Navbar />
     <div className="flex justify-center items-center h-screen">
     <div className="max-w-2xl mx-auto ">
     <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 ">
@@ -54,6 +56,7 @@ const AuthPage = () => {
   </div>
 
   </div>
+  </>
   );
 };
 

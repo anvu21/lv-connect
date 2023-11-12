@@ -1,62 +1,69 @@
-import styles from './styles.module.css';
-import React, { useState, useEffect } from 'react';
+import styles from "./styles.module.css";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import EventComment from './EventComment';
-import Comments from '../../assets/Comments.png';
-import AddComment from './AddComment';
+import EventComment from "./EventComment";
+import Comments from "../../assets/Comments.png";
+import AddComment from "./AddComment";
 
 const Event = (props) => {
   const [showComments, setShowComments] = useState(false);
-
   const [comments, setComments] = useState([]);
-
   const [addingComment, setAddingComment] = useState(false);
+  const [file, setFile] = useState(null);
 
-  useEffect( () => {
-    setComments([...comments, {
-      "id": "1",
-      "user": "User 1",
-      "date": "11/09/2023", 
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc consequat interdum varius sit amet mattis vulputate. Volutpat blandit aliquam etiam erat velit scelerisque in dictum non. Ut sem nulla pharetra diam sit amet nisl. Massa ultricies mi quis hendrerit dolor magna eget est. Integer eget aliquet nibh praesent tristique. Velit sed ullamcorper morbi tincidunt ornare massa eget egestas. Rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Vel quam elementum pulvinar etiam. Convallis posuere morbi leo urna. Sed turpis tincidunt id aliquet risus feugiat in ante metus. Tortor vitae purus faucibus ornare. At augue eget arcu dictum varius duis."
-    }
-     ]);
+  function handleChange(e) {
+    setFile(URL.createObjectURL(e.target.files[0]));
+  }
+
+  useEffect(() => {
+    setComments([
+      {
+        id: "1",
+        user: "User 1",
+        date: "11/09/2023",
+        content:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc consequat interdum varius sit amet mattis vulputate. Volutpat blandit aliquam etiam erat velit scelerisque in dictum non. Ut sem nulla pharetra diam sit amet nisl. Massa ultricies mi quis hendrerit dolor magna eget est. Integer eget aliquet nibh praesent tristique. Velit sed ullamcorper morbi tincidunt ornare massa eget egestas. Rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Vel quam elementum pulvinar etiam. Convallis posuere morbi leo urna. Sed turpis tincidunt id aliquet risus feugiat in ante metus. Tortor vitae purus faucibus ornare. At augue eget arcu dictum varius duis.",
+      },
+    ]);
   }, []);
 
   const toggleComments = () => {
     setShowComments(!showComments);
-  }
+  };
+
   return (
-    <>
-    <div className="bg-gray-100 text-left rounded-lg mt-5 mb-3" style={{ color: '#00539b' }}>
-        <p className='mx-4 py-3'>{props.name}</p>
-        <p className='mx-7'>{props.description}</p>
-        <div className="flex justify-between">
-            <p className='m-3'>Date: {props.date}</p>
-            <p className='m-3'>{props.location}</p>
-            <p className='m-3'>Posted: {props.posted}</p>
-            <img src={Comments} onClick={toggleComments} className='w-5 h-4 mr-2 cursor-pointer self-center'/>
-        </div> 
+    <div className="event-panel bg-gray-100 flex items-center justify-between rounded-lg mt-5 mb-3 p-4">
+      <div className="image-container w-1/2 h-full mr-4">
+        {file && (
+          <img
+            src={file}
+            alt="Event Image"
+            className="w-full h-full object-cover rounded-lg"
+          />
+        )}
+        {!file && (
+          <label htmlFor="fileInput" className="w-full h-full cursor-pointer">
+            <input
+              type="file"
+              id="fileInput"
+              onChange={handleChange}
+              className="w-full h-full opacity-0 cursor-pointer"
+            />
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="text-gray-400">Click to upload an image</span>
+            </div>
+          </label>
+        )}
+      </div>
+      <div className="text-container w-1/2 bg-white bg-opacity-75 rounded-lg p-4">
+        <p className="font-bold text-xl mb-2">{props.name}</p>
+        <p>{props.description}</p>
+        <p>{props.date}</p>
+        <p>{props.location}</p>
+      </div>
     </div>
-    { showComments &&
-        comments.map(comment => (
-            <EventComment user={comment.user} date={comment.date} content={comment.content} key={comment.id} />
-        ))
-    }
-    { showComments && !addingComment &&
-          <>
-            <button className='rounded-md mx-2 my-1 p-1 border border-black w-40' onClick={() => setAddingComment(true)}>Add a Comment</button>
-          </>
-      }
-    { showComments && addingComment &&
-          <>
-            <AddComment setAdd={setAddingComment}/>
-          </>
-      }
-    </>
-  )
-}
+  );
+};
 
 export default Event;
-
-

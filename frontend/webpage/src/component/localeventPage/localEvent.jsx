@@ -11,8 +11,35 @@ const localEvent = () => {
   const [events, setEvents] = useState([]);
 
   const [addEvent, setAddEvent] = useState(false);
-  useEffect( () => {
-    setEvents([...events, {
+  const [posts, setPosts] = useState([]);
+  const fetchPosts = async () => {
+
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/images/posts/local`, {
+        headers: {
+          'auth-token': localStorage.getItem('token')
+        }
+      });
+      const fetchedPosts = response.data;
+      //const combinedPosts = [...actors, ...fetchedPosts];
+      const sortedPosts = fetchedPosts.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+    
+      setEvents(sortedPosts);
+      console.log(sortedPosts);
+
+    } catch (error) {
+      console.error('Fetching posts failed:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+
+  }, []);
+
+  /* {
       "id": "1",
       "name": "Karaoke Night",
       "date": "12/13/2023",
@@ -29,7 +56,7 @@ const localEvent = () => {
       "description": "The 158th meeting of Lehigh and Lafayette. Come cheer on your school in the oldest rivalry in college football",
     } ]);
   }, []);
-  
+  */
   
   return (
     <>
@@ -47,8 +74,9 @@ const localEvent = () => {
         {
           events.map(event => (
             <div key={event.id} className="w-full mb-4">
-              <Event name={event.name} date={event.date} location={event.location}
-                posted={event.posted} description={event.description} />
+              <Event name={event.title} date={event.created_at} 
+                posted={event.created_at} description={event.content}
+                image={event.imageUrl} />
             </div>
           ))
         }

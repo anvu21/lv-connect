@@ -72,3 +72,6 @@
 .input {
     @apply my-2 h-20 text-3xl;
 }
+.login_btn_pos {
+    @apply rounded-xl border-black border p-2 my-3;
+}

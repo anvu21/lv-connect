@@ -76,8 +76,8 @@ const AuthPage = () => {
             />
             {error && <div className={styles.error_msg}>{error}</div>}
 
-            <button type="submit" className={styles.login_btn_pos}>
-              <div className={styles.login_btn}>Sign In</div>
+            <button type="submit" className={styles.acct_btn_pos}>
+              <div className={styles.acct_btn}>Sign In</div>
             </button>
             <div className={styles.or}>or</div>
             <button className={styles.acct_btn_pos}>

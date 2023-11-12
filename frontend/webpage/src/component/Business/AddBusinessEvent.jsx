@@ -40,6 +40,10 @@ const AddBusinessEvent = (props) => {
                     <label htmlFor="description">Description: </label>
                     <textarea className='mr-5' id="description" name="description" rows="4" cols="50" ></textarea>
                 </div>
+                <div className='m-2 w-full flex justify-between'>
+                    <label htmlFor="image">Image: </label>
+                    <input  className='mr-5' id="image" name="image" type="file" accept="image/*" />
+                </div>
             </div>
             <button className="m-2 border-black border rounded-md py-1 px-2" id="contentSave" onClick={submit}>Save</button>
             <button className="m-2 border-black border rounded-md py-1 px-2" id="contentSave" onClick={cancel}>Cancel</button>

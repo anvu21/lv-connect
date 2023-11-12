@@ -1,6 +1,7 @@
 import styles from './styles.module.css';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import io from 'socket.io-client';
+import axios from "axios";
 
 const ChatWindow = () => {
   const [message, setMessage] = useState('');
@@ -103,7 +104,7 @@ const ChatWindow = () => {
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch('http://localhost:5000/lvconnect/messages'); // Replace with your actual endpoint
+      const response = await fetch('http://localhost:5000/images/messages'); // Replace with your actual endpoint
       if (response.ok) {
         const data = await response.json();
         setMessages(data);

@@ -46,11 +46,10 @@ const CreateAcct = () => {
           <div className="text-sm ml-3">
             <label htmlFor="remember" className="font-medium text-gray-900">Remember me</label>
           </div>
-          <a href="#" className="text-sm text-blue-700 hover:underline ml-auto ">Lost Password?</a>
         </div>
-        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Login to your account</button>
+        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Create your account</button>
         <div className="text-sm font-medium text-gray-500 ">
-          Have an account? <a href="#" className="text-blue-700 hover:underline "><Link to="/auth">Log in</Link></a>
+          Already have an account? <a href="#" className="text-blue-700 hover:underline "><Link to="/auth">Log in</Link></a>
         </div>
       </form>
     </div>

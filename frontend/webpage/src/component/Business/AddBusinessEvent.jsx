@@ -4,7 +4,27 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AddBusinessEvent = (props) => {
+    const [data, setData] = useState({ text: "", up_down: "" });
 
+    const handleChange = ({ currentTarget: input }) => {
+      setData({ ...data, [input.name]: input.value });
+      console.log(data);
+    };
+  
+    const handleCamera = () => {
+      document.getElementById('fileInput').click();
+    };
+  
+    const [imageFile, setImageFile] = useState(null);
+    const [file, setFile] = useState(null);
+    const handleFileChange = (e) => {
+      setFile(e.target.files[0]);
+    
+      // show a preview of the image
+      let preview = document.getElementById('imagePreview');
+      preview.src = URL.createObjectURL(e.target.files[0]);
+    };
+    
     const submit = () => {
         const name = document.getElementById("name").value;
         const date = document.getElementById("date").value;

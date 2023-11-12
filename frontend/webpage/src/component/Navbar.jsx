@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { navLinks } from './constants';
-import logo from '../assets/Lehigh-Valley-connect.png';
+import logo from '../assets/Lehigh-valley-connect.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Navbar = () => {
   const [active, setActive] = useState("");

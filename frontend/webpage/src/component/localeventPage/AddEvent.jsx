@@ -12,6 +12,13 @@ const AddEvent = (props) => {
         const location = document.getElementById("location").value;
         props.setAdd(false);
     }
+    const cancel = () => {
+        document.getElementById("description").value = "";
+        document.getElementById("name").value ="";
+        document.getElementById("date").value ="";
+        document.getElementById("location").value ="";
+        props.setAdd(false);
+    }
 
     return (
         <>
@@ -35,6 +42,7 @@ const AddEvent = (props) => {
                 </div>
             </div>
             <button className="m-2 border-black border rounded-md py-1 px-2" id="contentSave" onClick={submit}>Save</button>
+            <button className="m-2 border-black border rounded-md py-1 px-2" id="contentSave" onClick={cancel}>Cancel</button>
         </div>
         </>
     )

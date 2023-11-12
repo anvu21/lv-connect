@@ -10,6 +10,11 @@ const AddComment = (props) => {
         props.setAdd(false);
     }
 
+    const cancel = () => {
+        document.getElementById("description").value = "";
+        props.setAdd(false);
+    }
+
     return (
         <>
         <div className='bg-gray-200 m-2'>
@@ -20,6 +25,7 @@ const AddComment = (props) => {
                 </div>
             </div>
             <button className="m-2 border-black border rounded-md py-1 px-2" id="contentSave" onClick={submit}>Save</button>
+            <button className="m-2 border-black border rounded-md py-1 px-2" id="contentSave" onClick={cancel}>Cancel</button>
         </div>
         </>
     )

@@ -4,6 +4,7 @@ import axios from "axios";
 import Facebook from "../assets/facebook.png";
 import Twitter from "../assets/twitter.png";
 import Instagram from "../assets/instagram.png";
+import Logo from "../assets/Lehigh-valley-connect.png";
 
 const Footer = (props) => {
   
@@ -41,7 +42,8 @@ const Footer = (props) => {
             <li><Link to="/chat">Chat Room</Link></li>
           </ul>
         </div>
-        <div className="mx-3 my-1">
+        <div className="mx-3 my-1 flex flex-col items-center">
+          <img  className="w-24" src={Logo} alt="logo" />
             <p>&copy; 2023 LVConnect. All rights reserved.</p>
         </div>
       </div>

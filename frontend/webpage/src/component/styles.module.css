@@ -43,7 +43,7 @@
 }
 
 .signup_btn_pos {
-    @apply w-4/5 h-12 relative flex;
+    @apply w-4/5 h-12 relative flex mt-4;
 }
 
 .signup_btn {

@@ -1,7 +1,6 @@
 import styles from "./styles.module.css";
 import React, { useState } from "react";
 import axios from "axios";
-import "./AuthPage.css"; // Assuming you have basic CSS for layout
 import Navbar from "./Navbar.jsx";
 
 const AuthPage = () => {

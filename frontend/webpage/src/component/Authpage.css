@@ -1,0 +1,57 @@
+/* AuthPage.module.css */
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.screen {
+    @apply w-full min-h-[1000px] relative bg-gray-200 flex flex-col items-center p-5;
+}
+
+.logo_pos {
+    @apply w-44 relative;
+}
+
+.logo {
+    @apply w-full h-full object-cover;
+}
+
+.login_box {
+    @apply min-w-[400px] min-h-[485px] mt-5 relative bg-gray-100 border border-neutral-300 rounded-lg shadow-sm flex flex-col items-center;
+}
+
+.login_text {
+    @apply text-3xl relative my-5 text-sky-600 font-semibold;
+}
+
+.input_contain {
+    @apply w-full h-full relative flex flex-col items-center;
+}
+
+.input {
+    @apply w-4/5 h-10 mb-3 bg-white text-black border border-gray-300 resize-none rounded-lg px-3 py-1.5;
+}
+
+.error_msg {
+    @apply w-4/5 p-3 mb-3 bg-red-500 text-white text-sm rounded-md text-center;
+}
+
+.login_btn_pos {
+    @apply w-4/5 h-12 relative flex;
+}
+
+.login_btn {
+    @apply w-full h-full bg-cya hover:bg-yellow-300 hover:text-black text-2xl text-white font-bold rounded-lg shadow-sm focus:outline-none flex justify-center items-center;
+}
+
+.or {
+    @apply mt-2 mb-3 text-sky-600 text-sm;
+}
+
+.acct_btn_pos {
+    @apply relative m-3 flex;
+}
+
+.acct_btn {
+    @apply text-sky-600 font-bold hover:text-brn hover:underline focus:outline-none flex justify-center items-center;
+}

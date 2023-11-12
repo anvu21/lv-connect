@@ -83,9 +83,10 @@ const CreateAcct = () => {
   return (
     <div>
       <div className={styles.screen}>
-        <div className={styles.logo_pos}>
-          <img className={styles.logo} src="/HiLo Logo.png" alt="Logo"/>
-        </div> 
+        <div className='w-full'>
+          <Navbar />
+        </div>
+        
 
         <div className={styles.signup_box}>
           <div className={styles.signup_text}>Create a new account</div>
@@ -125,6 +126,7 @@ const CreateAcct = () => {
               onChange={handleChange}
               value={data.user_type}
               className={styles.bio}
+              style={{display:"none"}}
             ></textarea>
             
             {error && <div className={styles.error_msg}>{error}</div>}

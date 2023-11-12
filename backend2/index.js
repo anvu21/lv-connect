@@ -193,6 +193,40 @@ app.get('/posts/business', async (req, res) => {
   }
 });
 
+app.post('/message', verifyToken, async (req, res) => {
+  const { messageText } = req.body;
+  const { id: userId } = req.user;
+
+  if (!messageText) {
+    return res.status(400).json({ message: 'Message text is required' });
+  }
+
+  try {
+    const result = await pool.query('INSERT INTO Messages (user_id, content, created_at, updated_at) VALUES ($1, $2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING id', [userId, messageText]);
+
+    return res.status(201).json({ message: 'Message created successfully', messageId: result.rows[0].id });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.get('/messages', async (req, res) => {
+  try {
+    const results = await pool.query(`
+      SELECT messages.*, users.username 
+      FROM messages 
+      INNER JOIN users ON messages.user_id = users.id`);
+
+    res.json(results.rows);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 app.post('/comment', verifyToken, async (req, res) => {
   const { postId, comment_text } = req.body;
@@ -380,94 +414,62 @@ io.use((socket, next) => {
     next(new Error('403 Forbidden'));
   }
 });
-
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  const user = socket.decoded;
-  const userId = user.id;
-  socket.on('join conversation', (conversationId) => {
-    socket.join(conversationId);
-  });
+  // Joining the main message board room
+  socket.join('message-board');
+
+  // Handling a new chat message
   socket.on('chat message', async (data) => {
-    
-    const { conversationId,group_id, content, receiver_name } = JSON.parse(data);
     const user = socket.decoded;
-    //console.log('User:', user);
-    const sender_id = user.id;
+    const { content } = data; // Assuming data contains the message content
+    const user_id = user.id;
 
     try {
-      // Query to find the receiver's id based on the receiver_name
-      const receiverQuery = 'SELECT id FROM users WHERE username = $1';
-      const receiverResult = await pool.query(receiverQuery, [receiver_name]);
+      // Insert the new message into the messages table
+      const query = 'INSERT INTO messages (user_id, content) VALUES ($1, $2)';
+      const values = [user_id, content];
+      await pool.query(query, values);
 
-      if (receiverResult.rows.length > 0) {
-        const receiver_id = receiverResult.rows[0].id;
-
-        // Now that we have the receiver_id, we can insert the new message into the messages table
-        const query = 'INSERT INTO messages (group_id, sender_id, content, receiver_id) VALUES ($1, $2, $3, $4)';
-        const values = [group_id, sender_id, content, receiver_id];
-
-        await pool.query(query, values);
-
-        io.to(conversationId).emit('chat message', data); 
-            } else {
-        // If the receiver was not found in the database, we can't insert the message
-        socket.emit('chat message', JSON.stringify({ error: 'Receiver not found' }));
-      }
+      
+      // Emit the message to all users in the message board
+      const messageToSend = {
+        id: data.id,
+        content: data.content,
+        sender_name: user.username, // Assuming you have the username
+        timestamp: new Date() // Set the timestamp
+      };
+      io.to('message-board').emit('chat message', messageToSend);
+    
     } catch (error) {
       console.error('Error executing query', error.stack);
       socket.emit('chat message', JSON.stringify({ error: 'Could not save message' }));
     }
   });
 
-  socket.on('fetch old messages', async (data) => {
-    const { group_id,receiver_name,user_id } = data;
-    console.log(group_id,receiver_name,user_id);
+  // Fetching old messages for the message board
+  socket.on('fetch old messages', async () => {
     try {
-          // First, get the receiver's ID from the username
-      const userQuery = `SELECT id FROM users WHERE username = $1`;
-      const userResult = await pool.query(userQuery, [receiver_name]);
-      // Query to find old messages based on the group_id
-      if (userResult.rows.length > 0) {
-        const receiver_id = userResult.rows[0].id;
-  
-        // Now, use the receiver's ID to fetch the messages
-        const messagesQuery = `
-        SELECT messages.*, users.username AS sender_name 
+      const messagesQuery = `
+        SELECT messages.*, users.username 
         FROM messages 
-        JOIN users ON messages.sender_id = users.id
-        WHERE messages.group_id = $1 AND 
-          ((messages.receiver_id = $2 AND messages.sender_id = $3) OR 
-           (messages.receiver_id = $3 AND messages.sender_id = $2))
+        JOIN users ON messages.user_id = users.id
         ORDER BY timestamp DESC
       `;
-        const messagesResult = await pool.query(messagesQuery, [group_id, receiver_id,user_id]);
-        console.log("Message Row"+messagesResult.rows)
-        console.log("Message length"+messagesResult.rows.length)
+      const messagesResult = await pool.query(messagesQuery);
 
-        if (messagesResult.rows.length > 0) {
-          const oldMessages = messagesResult.rows;
-          // Send the old messages back to the client
-          console.log("Old message")
-
-          socket.emit('old messages', oldMessages);
-        } else {
-          // If there are no old messages for this group_id, we can send an empty array
-          console.log("No old messages")
-          socket.emit('old messages', []);
-        }
+      if (messagesResult.rows.length > 0) {
+        const oldMessages = messagesResult.rows;
+        socket.emit('old messages', oldMessages);
       } else {
-        console.error('No user with username', receiver_name);
-        socket.emit('chat message', JSON.stringify({ error: 'No user found with given username' }));
+        socket.emit('old messages', []);
       }
     } catch (error) {
       console.error('Error executing query', error.stack);
       socket.emit('chat message', JSON.stringify({ error: 'Could not fetch old messages' }));
     }
   });
-
-
 
   socket.on('disconnect', () => {
     console.log('user disconnected');

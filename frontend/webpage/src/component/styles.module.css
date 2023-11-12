@@ -43,7 +43,7 @@
 }
 
 .signup_btn_pos {
-    @apply w-4/5 h-12 relative flex;
+    @apply w-4/5 h-12 relative flex mt-4;
 }
 
 .signup_btn {
@@ -67,4 +67,11 @@
 	color: white;
 	border-radius: 5px;
 	text-align: center;
+}
+
+.input {
+    @apply my-2 h-20 text-3xl;
+}
+.login_btn_pos {
+    @apply rounded-xl border-black border p-2 my-3;
 }

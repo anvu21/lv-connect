@@ -4,22 +4,41 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const BusinessEvent = (props) => {
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [addingComment, setAddingComment] = useState(false);
+  const [file, setFile] = useState(null);
+  const [posts, setPosts] = useState([]);
+
+  function handleChange(e) {
+    setFile(URL.createObjectURL(e.target.files[0]));
+  }
+
   
+
+  const toggleComments = () => {
+    setShowComments(!showComments);
+  };
  
   return (
-    <>
-    <div className='w-11/12 flex flex-col items-center' style={{marginLeft:'auto', marginRight:'auto'}}>
-        <div className="bg-gray-100 text-left rounded-lg mt-5 mb-3" style={{ color: '#00539b' }}>
-            <p className='mx-4 py-3'>{props.name}</p>
-            <p className='mx-7'>{props.description}</p>
-            <div className="flex justify-between">
-                <p className='m-3'>Date: {props.date}</p>
-                <p className='m-3'>{props.location}</p>
-                <p className='m-3'>Posted: {props.posted}</p>
-            </div> 
-        </div>
+    <div className="event-panel bg-gray-100 flex items-center justify-between rounded-lg mt-5 mb-3 p-4">
+      <div className="image-container w-1/2 h-full mr-4">
+        
+          <img
+            src={props.image}
+            alt="Promotion Image"
+            className="w-full h-full object-cover rounded-lg"
+          />
+        
+        
+      </div>
+      <div className="text-container w-1/2 bg-white bg-opacity-75 rounded-lg p-4">
+        <p className="font-bold text-xl mb-2">{props.name}</p>
+        <p>{props.description}</p>
+        <p>{props.date}</p>
+        <p>{props.location}</p>
+      </div>
     </div>
-    </>
   )
 }
 

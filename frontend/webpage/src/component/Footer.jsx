@@ -79,7 +79,6 @@ const Footer = (props) => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/local">Local Events</Link></li>
             <li><Link to="/volunteer-opportunities">Volunteer</Link></li>
-            <li><Link to="/local-business-support">Local Businesses</Link></li>
             <li><Link to="/chat-room">Chat Room</Link></li>
           </ul>
         </div>

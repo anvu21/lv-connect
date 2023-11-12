@@ -1,5 +1,10 @@
 export const navLinks = [
     {
+      id: "Home",
+      title: "Home",
+      path: "/main",  // Update these paths as per your routing structure
+    },
+    {
       id: "Local",
       title: "Local Events",
       path: "/local",  // Update these paths as per your routing structure
@@ -14,11 +19,7 @@ export const navLinks = [
       title: "Chat Room",
       path: "/chat-room",
     },
-    {
-        id: "Business",
-        title: "Local Business Support",
-        path: "/local-business-support",
-      },
+    
   ];
   
   

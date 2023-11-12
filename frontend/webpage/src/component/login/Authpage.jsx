@@ -1,7 +1,8 @@
 import styles from "./styles.module.css";
 import React, { useState } from "react";
 import axios from "axios";
-import Navbar from "./Navbar.jsx";
+import Navbar from "../Navbar.jsx";
+import "./AuthPage.css";
 
 const AuthPage = () => {
   const [data, setData] = useState({ username: "", password: "" });

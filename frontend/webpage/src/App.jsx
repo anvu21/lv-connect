@@ -7,8 +7,8 @@ import Business from './component/Business/business';
 
 import Chat from './component/Chat/chatroom';
 import Volunteer from './component/Volunteer/volunteer';
-import Auth from './component/Authpage';
-import CreateAcct from './component/CreateAcct.jsx';
+import Auth from './component/login/Authpage';
+import CreateAcct from './component/signup/CreateAcct.jsx';
 
 import Footer from './component/Footer.jsx';
 import './App.css'

@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const AddEvent = () => {
+const AddEvent = (props) => {
 
     const submit = () => {
         const name = document.getElementById("name").value;
         const date = document.getElementById("date").value;
         const description = document.getElementById("description").value;
         const location = document.getElementById("location").value;
-        console.log(name + date);
+        props.setAdd(false);
     }
 
     return (

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const AddEvent = (props) => {
+const AddBusinessEvent = (props) => {
 
     const submit = () => {
         const name = document.getElementById("name").value;
@@ -15,7 +15,7 @@ const AddEvent = (props) => {
 
     return (
         <>
-        <div className='bg-gray-200 m-2'>
+        <div className='bg-gray-200 m-2 w-fit' style={{marginLeft:'auto', marginRight:'auto'}}>
             <div className='flex flex-col items-start justify-around'>
                 <div className='m-2'>
                     <label htmlFor="name">Name: </label>
@@ -39,4 +39,4 @@ const AddEvent = (props) => {
         </>
     )
 }
-export default AddEvent;
+export default AddBusinessEvent;

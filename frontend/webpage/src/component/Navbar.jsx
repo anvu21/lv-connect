@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="flex items-center justify-between p-4 bg-white shadow-md">
         
-        <div className="flex items-center"> {/* Flex container for logo and text */}
+      <div className="flex items-center"> {/* Flex container for logo and text */}
         <img src={logo} alt="logo" className="w-8 h-8 object-contain mr-2"/> {/* Logo with right margin */}
         <div className="text-xl font-bold">
           <Link to="/" style={{ color: '#00539b' }}>Lvconnect</Link>
@@ -34,10 +34,8 @@ const Navbar = () => {
     <Link to={link.path} className="hover:text-blue-600">{link.title}</Link>
         </li>
   ))}
-  <button className="flex items-center justify-center px-4 py-2 border rounded-full hover:bg-gray-100">
-          
-          
-          <span className="ml-2">Login</span>
+  <button className="flex items-center justify-center px-4 py-2 border rounded-full hover:bg-gray-100">  
+          <span className="ml-2"><Link to="/auth">Login</Link></span>
         </button>
 </ul>
 
@@ -49,6 +47,7 @@ const Navbar = () => {
       </div>
 
 
+<<<<<<< HEAD
       <div className="hidden md:flex items-center">
         <button className="flex items-center justify-center px-4 py-2 border rounded-full hover:bg-gray-100">
           
@@ -57,6 +56,8 @@ const Navbar = () => {
       </div>
 
 
+=======
+>>>>>>> 412947f4b3d08ecaf22804e82baefba73b09b50b
     </nav>
   );
 };

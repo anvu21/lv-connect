@@ -7,11 +7,46 @@ import Instagram from "../assets/instagram.png";
 import Logo from "../assets/Lehigh-valley-connect.png";
 
 const Footer = (props) => {
+  const emailRegex = /^(\S+)@(\S+)[.](\w+)$/;
 
+  const phoneNumberCheck = (str) => {
+    if(/^\d{3}\-\d{3}\-\d{4}$/.test(str)){ 
+      return true;
+    }
+    if(/^1? ?\d{3} *\d{3} *\d{4}$/.test(str)){
+      return true;
+    }
+    if(/^1?  ?\d{3}\-\d{3}\-\d{4}$/.test(str)){
+      return true;
+    }
+    if(/^1? ?(\(\d{3}\)|\d{3}) ?\d{3}\-\d{4}$/.test(str)){
+      return true;
+    }
+    return false;
+  }
   const clearSub = () => {
     const name = document.getElementById('subName');
-    const email = document.getElementById('email');
+    const email = document.getElementById('subEmail');
     const phone = document.getElementById('subPhone');
+    if(name.value == ""){
+      window.alert("Please input a name");
+      return;
+    }
+    if(email.value == ""){
+      window.alert("Please enter an email");
+      return;
+    }
+    if(!emailRegex.test(email.value)){
+      window.alert("Please input a valid email address");
+      return;
+    }
+    if(phone.value != "" && !phoneNumberCheck(phone.value)){
+      window.alert("Invalid phone number");
+      return;
+    }
+    name.value = "";
+    email.value = "";
+    phone.value = "";
   }
   
   return (
@@ -29,7 +64,7 @@ const Footer = (props) => {
         <input className='mx-2' id="subName" type="text" required placeholder='Name *' />
         <input className='mx-2' id="subEmail" type="email" required placeholder='Email *' />
         <input className='mx-2' id="subPhone" type="tel" placeholder='Phone' />
-        <button className='rounded-md mx-2 p-1 bg-white'>Subscribe</button>
+        <button onClick={clearSub} type='submit' className='rounded-md mx-2 p-1 bg-white'>Subscribe</button>
       </div>
       <div className="flex justify-between items-center  max-w-5xl text-sm py-10 gap-10">
         <div className="mx-3 my-1">
@@ -43,9 +78,9 @@ const Footer = (props) => {
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/local">Local Events</Link></li>
-            <li><Link to="/volunteer">Volunteer</Link></li>
-            <li><Link to="/business">Local Businesses</Link></li>
-            <li><Link to="/chat">Chat Room</Link></li>
+            <li><Link to="/volunteer-opportunities">Volunteer</Link></li>
+            <li><Link to="/local-business-support">Local Businesses</Link></li>
+            <li><Link to="/chat-room">Chat Room</Link></li>
           </ul>
         </div>
         <div className="mx-3 my-1 flex flex-col items-center">

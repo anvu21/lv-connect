@@ -41,20 +41,20 @@ const AddEvent = (props) => {
         <div className='bg-gray-200 m-2'>
             <div className='flex flex-col items-start justify-around'>
                 <div className='m-2 w-full flex justify-between'>
-                    <label htmlFor="name">Name: </label>
-                    <input className='mr-5' type="text" id="name" name="name" style={{width:'420px'}}/>
+                    <label htmlFor="name">Name: *</label>
+                    <input required className='mr-5' type="text" id="name" name="name" style={{width:'420px'}}/>
                 </div>
                 <div className='m-2 w-full flex justify-between'>
-                    <label htmlFor="date">Date: </label>
-                    <input className='mr-5'  type="date" id="date" name="date" style={{width:'420px'}}/>
+                    <label htmlFor="date">Date: *</label>
+                    <input required className='mr-5'  type="date" id="date" name="date" style={{width:'420px'}}/>
                 </div>
                 <div className='m-2 w-full flex justify-between'>
-                    <label htmlFor="location">Location: </label>
-                    <input className='mr-5' type="text" id="location" name="location" style={{width:'420px'}}/>
+                    <label htmlFor="location">Location: *</label>
+                    <input required className='mr-5' type="text" id="location" name="location" style={{width:'420px'}}/>
                 </div>
                 <div className='m-2 w-full flex justify-between'>
-                    <label htmlFor="description">Description: </label>
-                    <textarea  className='mr-5' id="description" name="description" rows="4" cols="50" ></textarea>
+                    <label htmlFor="description">Description: *</label>
+                    <textarea required className='mr-5' id="description" name="description" rows="4" cols="50" ></textarea>
                 </div>
                 <div className='m-2 w-full flex justify-between'>
                     <label htmlFor="image">Image: </label>

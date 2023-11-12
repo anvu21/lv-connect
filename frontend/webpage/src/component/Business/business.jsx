@@ -12,7 +12,34 @@ const business = () => {
 
     const [addEvent, setAddEvent] = useState(false);
 
-    useEffect( () => {
+    const fetchPosts = async () => {
+
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/images/posts/business`, {
+          headers: {
+            'auth-token': localStorage.getItem('token')
+          }
+        });
+        const fetchedPosts = response.data;
+        //const combinedPosts = [...actors, ...fetchedPosts];
+        const sortedPosts = fetchedPosts.sort((a, b) => {
+          return new Date(b.created_at) - new Date(a.created_at);
+        });
+      
+        setEvents(sortedPosts);
+        console.log(sortedPosts);
+  
+      } catch (error) {
+        console.error('Fetching posts failed:', error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchPosts();
+  
+    }, []);
+
+    /*useEffect( () => {
         setEvents([...events, {
         "id": "1",
         "name": "TestName",
@@ -29,13 +56,13 @@ const business = () => {
         "posted": "11/10/2023", 
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ut porttitor leo a. Varius sit amet mattis vulputate enim nulla aliquet. Amet mattis vulputate enim nulla aliquet porttitor. Nec nam aliquam sem et tortor. Volutpat lacus laoreet non curabitur. Mattis aliquam faucibus purus in massa tempor nec. Dolor sit amet consectetur adipiscing elit duis tristique sollicitudin nibh. Morbi non arcu risus quis varius quam quisque. Porttitor leo a diam sollicitudin tempor id eu nisl. Malesuada fames ac turpis egestas maecenas pharetra convallis. Faucibus turpis in eu mi bibendum neque."
         } ]);
-    }, []);
+    }, []);*/
 
   
   return (
     <>
         <NavBar />
-        <div>
+        <div className='w-11/12 flex flex-col items-center' style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             <h1 className='my-5 text-3xl'>Local Business Promotions</h1>
             {addEvent && 
               <AddBusinessEvent setAdd={setAddEvent} />
@@ -47,7 +74,7 @@ const business = () => {
             }
             {
               events.map(event => (
-                <BusinessEvent name={event.name} date={event.date} location={event.location}
+                <BusinessEvent name={event.name} date={event.created_at} location={event.location}
                   posted={event.posted} description={event.description} key={event.id}/>
               ))
             }

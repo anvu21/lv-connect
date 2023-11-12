@@ -1,4 +1,11 @@
+from models import User
 
+import uuid
+
+from datetime import datetime
+from database import Database
+
+database = Database()
 
 # Service for handling normal events
 class EventService(): 
@@ -64,3 +71,21 @@ class BusinessEventService():
         # True if found, false if not found
         pass
             
+            
+class UserService():
+    def addUser(self, request_data):
+        dateSignUp = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        user_data = User(
+            id=str(uuid.uuid4()),
+            business_id=request_data.get('business_id', None),
+            name=request_data.get('name', None),
+            username=request_data.get('username', None),
+            email=request_data.get('email', None),
+            bio=request_data.get('bio', None),
+            dateSignUp=str(dateSignUp)
+        )
+        database.addUser(user_data) # adding user to db
+        return {str(key): str(value) for key, value in user_data.__dict__.items()}
+    
+    def getUsers(self):
+        return database.getUsers()

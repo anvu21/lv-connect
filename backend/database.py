@@ -1,8 +1,27 @@
 import psycopg2
 from config import DATABASE, USER, PASSWORD, HOST, PORT
-from queries import CREATE_ALL_TABLES
+from queries import CREATE_ALL_TABLES, INSERT_USER, DROP_TABLES, INSERT_USER_NO_DT, RETRIEVE_USERS,VIEW_ALL_TABLES
+from models import User
 
 class Database():
+    # Only called initially
+    
+    def dropAllTables(self):
+        try:
+            engine = psycopg2.connect(
+                    database=DATABASE,
+                    user=USER,
+                    password=PASSWORD,
+                    host=HOST,
+                    port=PORT
+            )
+            cursor = engine.cursor()
+            drop_tables = DROP_TABLES
+            cursor.execute(drop_tables)
+            engine.commit()
+        except Exception as e:
+            return "Database setup failed due to {}".format(e) 
+    
     def setup(self):
         try:
             engine = psycopg2.connect(
@@ -16,10 +35,11 @@ class Database():
             create_all_tables = CREATE_ALL_TABLES
             cursor.execute(create_all_tables)
             engine.commit()
+            print("TABLES CREATED")
         except Exception as e:
             return "Database setup failed due to {}".format(e) 
     
-    def dropUsers(self):
+    def getAllTables(self):
         try:
             engine = psycopg2.connect(
                     database=DATABASE,
@@ -29,13 +49,37 @@ class Database():
                     port=PORT
             )
             cursor = engine.cursor()
-            create_all_tables = "drop table users"
-            cursor.execute(create_all_tables)
+            cursor.execute(VIEW_ALL_TABLES)
+            results = cursor.fetchall()
+            engine.commit()
+            return results
+        except Exception as e:
+            return "Database setup failed due to {}".format(e)
+         
+    def addUser(self, user: User):
+        try:
+            engine = psycopg2.connect(
+                    database=DATABASE,
+                    user=USER,
+                    password=PASSWORD,
+                    host=HOST,
+                    port=PORT
+            )
+            cursor = engine.cursor()
+            cursor.execute(INSERT_USER, (
+                user.id,
+                user.business_id,
+                user.name,
+                user.username,
+                user.email,
+                user.bio,
+                user.dateSignUp
+            ))
             engine.commit()
         except Exception as e:
             return "Database setup failed due to {}".format(e) 
     
-    def createAdminUser(self):
+    def getUsers(self):
         try:
             engine = psycopg2.connect(
                     database=DATABASE,
@@ -45,33 +89,21 @@ class Database():
                     port=PORT
             )
             cursor = engine.cursor()
-        
-            sample_data = [
-                    ("user7", "user1@example.com"),
-                    ("user8", "user2@example.com"),
-                    ("user9", "user3@example.com")
-                ]
+            # Fetch all the rows
+            # rows = cursor.fetchall()
+            cursor.execute(RETRIEVE_USERS)
+            
+            #cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';")
+            results = cursor.fetchall()
+            for result in results:
+                print(result)
+            # Process the results and convert them to an array of User objects
+            # users = [User(*row) for row in rows]
+            
+            return results
         except Exception as e:
             return "Database setup failed due to {}".format(e) 
 
-        # Insert data into the table
-        insert_query = "INSERT INTO users (username, email) VALUES (%s, %s);"
-        cursor.executemany(insert_query, sample_data)
-
-        # Commit the changes to the database
-        engine.commit()
-
-        # Sample query to retrieve all entries
-        select_query = "SELECT * FROM users;"
-        cursor.execute(select_query)
-        all_entries = cursor.fetchall()
-        print("All entries:")
-        for entry in all_entries:
-            print(entry)
-          
-        
-        
-        
         
         
     def makeConnection(self):

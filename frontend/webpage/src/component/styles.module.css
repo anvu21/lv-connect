@@ -68,3 +68,7 @@
 	border-radius: 5px;
 	text-align: center;
 }
+
+.input {
+    @apply my-2 h-20 text-3xl;
+}

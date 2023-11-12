@@ -1,6 +1,7 @@
 import psycopg2
 from config import DATABASE, USER, PASSWORD, HOST, PORT
-from queries import CREATE_ALL_TABLES, INSERT_USER, DROP_TABLES, INSERT_USER_NO_DT, RETRIEVE_USERS,VIEW_ALL_TABLES
+from queries import CREATE_ALL_TABLES, INSERT_USER, TEST_USER
+from queries import DROP_TABLES, INSERT_USER_V2, RETRIEVE_USERS,VIEW_ALL_TABLES,RETRIEVE_USERS_BY_ID
 from models import User
 
 class Database():
@@ -77,20 +78,25 @@ class Database():
                     port=PORT
             )
             cursor = engine.cursor()
-            cursor.execute(INSERT_USER, (
+            
+            user_strs = (
                 user.id,
-                user.business_id,
+                user.dateSignUp,
                 user.name,
                 user.username,
                 user.email,
                 user.bio,
-                user.dateSignUp
-            ))
+                user.business_id,
+            )
+
+            print(user_strs)
+            cursor.execute(INSERT_USER_V2, user_strs)
+            # cursor.execute(INSERT_USER_V2, user_strs)
             engine.commit()
         except Exception as e:
             return "Database setup failed due to {}".format(e) 
     
-    def getUsers(self):
+    def getUsers(self, id):
         try:
             engine = psycopg2.connect(
                     database=DATABASE,
@@ -100,18 +106,17 @@ class Database():
                     port=PORT
             )
             cursor = engine.cursor()
-            # Fetch all the rows
-            # rows = cursor.fetchall()
-            cursor.execute(RETRIEVE_USERS)
             
-            #cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';")
-            results = cursor.fetchall()
-            for result in results:
-                print(result)
-            # Process the results and convert them to an array of User objects
-            # users = [User(*row) for row in rows]
-            
-            return results
+            if id is None:
+                cursor.execute(RETRIEVE_USERS)
+            else: 
+                cursor.execute(RETRIEVE_USERS_BY_ID, id)
+                
+            rows = cursor.fetchall()
+            columns = [desc[0] for desc in cursor.description]
+            result_list = [dict(zip(columns, row)) for row in rows]
+            engine.commit()
+            return result_list
         except Exception as e:
             return "Database setup failed due to {}".format(e) 
 

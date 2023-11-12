@@ -46,6 +46,14 @@ class User(Resource):
             return userService.getUsers()
         except Exception as e:
             return {'error': str(e)}, 400
+
+class UserById(Resource):
+    def get(self):
+        try: 
+            request_data = request.get_json()
+            return userService.getUserById(request_data)
+        except Exception as e:
+            return {'error': str(e)}, 400
         
 class DBSetup(Resource):
     def post(self):
@@ -66,6 +74,7 @@ api.add_resource(DBSetup, '/db/setup')
 api.add_resource(DBDestroy, '/db/destroy')
 api.add_resource(DBViewTables, '/db/tables')
 api.add_resource(User, '/user')
+api.add_resource(UserById, '/user/id')
 
 if __name__ == '__main__':
     app.run(debug=True) 

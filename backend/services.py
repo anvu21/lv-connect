@@ -74,7 +74,7 @@ class BusinessEventService():
             
 class UserService():
     def addUser(self, request_data):
-        dateSignUp = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        dateSignUp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         user_data = User(
             id=str(uuid.uuid4()),
             business_id=request_data.get('business_id', None),
@@ -88,4 +88,8 @@ class UserService():
         return {str(key): str(value) for key, value in user_data.__dict__.items()}
     
     def getUsers(self):
-        return database.getUsers()
+        return database.getUsers(None)
+    
+    def getUserById(self, request_data):
+        id = request_data.get('id', None),
+        return database.getUsers(id)

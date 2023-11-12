@@ -10,8 +10,11 @@ const Footer = (props) => {
 
   const clearSub = () => {
     const name = document.getElementById('subName');
-    const email = document.getElementById('email');
+    const email = document.getElementById('subEmail');
     const phone = document.getElementById('subPhone');
+    name.value = "";
+    email.value = "";
+    phone.value = "";
   }
   
   return (
@@ -29,7 +32,7 @@ const Footer = (props) => {
         <input className='mx-2' id="subName" type="text" required placeholder='Name *' />
         <input className='mx-2' id="subEmail" type="email" required placeholder='Email *' />
         <input className='mx-2' id="subPhone" type="tel" placeholder='Phone' />
-        <button className='rounded-md mx-2 p-1 bg-white'>Subscribe</button>
+        <button onClick={clearSub} className='rounded-md mx-2 p-1 bg-white'>Subscribe</button>
       </div>
       <div className="flex justify-between items-center  max-w-5xl text-sm py-10 gap-10">
         <div className="mx-3 my-1">

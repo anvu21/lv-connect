@@ -47,17 +47,6 @@ const Navbar = () => {
       </div>
 
 
-<<<<<<< HEAD
-      <div className="hidden md:flex items-center">
-        <button className="flex items-center justify-center px-4 py-2 border rounded-full hover:bg-gray-100">
-          
-          <span className="ml-2">Login</span>
-        </button>
-      </div>
-
-
-=======
->>>>>>> 412947f4b3d08ecaf22804e82baefba73b09b50b
     </nav>
   );
 };

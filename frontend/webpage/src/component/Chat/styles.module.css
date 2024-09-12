@@ -1,0 +1,60 @@
+/* Updated tailwindcss styles */
+.chatroom-container {
+    @apply w-full min-h-[1000px] relative bg-gray-200 flex flex-col items-center p-5;
+  }
+  
+  .chat-window {
+    @apply w-full h-full bg-white border border-gray-300 rounded shadow-md p-4 flex flex-col;
+  }
+  
+  .chat-header {
+    @apply text-3xl font-bold mb-4 border-b border-gray-300 text-gray-800;
+  }
+  
+  .message-container {
+    @apply flex-grow overflow-y-auto px-4 space-y-4;
+  }
+  
+  .message {
+    @apply py-2 px-4 max-w-lg shadow-md text-left;
+  }
+  
+  .message-sender {
+    @apply text-gray-500 text-xs mt-1;
+  }
+  
+  .input-container {
+    @apply mt-4 flex;
+  }
+  
+  .message-input {
+    @apply flex-grow border border-gray-300 rounded px-4 py-2 mr-2 focus:outline-none;
+  }
+  
+  .send-button {
+    @apply bg-green-600 text-white px-4 py-2 rounded focus:outline-none hover:bg-teal-600;
+  }
+  
+  /* Example: Using a more modern color palette */
+  :root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+  }
+  
+  /* Apply the color variables */
+  .bg-primary {
+    background-color: var(--primary-color);
+  }
+  
+  .text-primary {
+    color: var(--primary-color);
+  }
+  
+  .bg-secondary {
+    background-color: var(--secondary-color);
+  }
+  
+  .text-secondary {
+    color: var(--secondary-color);
+  }
+  

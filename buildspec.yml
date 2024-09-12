@@ -1,0 +1,17 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd frontend/webpage
+        - npm install
+    build:
+      commands:
+        - npm run build # This will output to the 'dist' directory by default
+  artifacts:
+    baseDirectory: frontend/webpage/dist # Adjusted to the correct build output directory
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - frontend/webpage/node_modules/**/*
